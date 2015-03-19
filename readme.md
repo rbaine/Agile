@@ -67,6 +67,8 @@
 
 **Task**
 
+- ID
+- StoryId
 - Name
 - Owner (`user.id`)
 - State (`state list item`)
