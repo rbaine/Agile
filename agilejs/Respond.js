@@ -1,5 +1,5 @@
-function Respond(msg) {
+function respond(msg) {
 	return "This is a response of: " + msg;
 }
 
-module.exports = Respond;
+module.exports = respond;

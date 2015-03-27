@@ -53,3 +53,5 @@ UUID._ha = function(num, length) {  // _hexAligner
 };
 
 // vim: et ts=2 sw=2
+
+module.exports = UUID;

@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Thu Mar 19 2015 20:04:31 GMT-0700 (Pacific Daylight Time)
+// Generated on Thu Mar 26 2015 20:01:34 GMT-0700 (Pacific Daylight Time)
 
 module.exports = function(config) {
   config.set({
@@ -10,12 +10,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: [],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'agile.js'
+      'test_agile.js'
     ],
 
 
@@ -55,7 +55,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: [],
 
 
     // Continuous Integration mode
