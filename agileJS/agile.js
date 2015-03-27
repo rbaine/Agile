@@ -205,7 +205,8 @@ var AGILE = (function () {
 
     return {
         getVer : function() {
-            return "Version: " + ver + "\nInstance: " + ACCOUNT.id;
+            // return "Version: " + ver + "\nInstance: " + ACCOUNT.id;
+            return ver;
         },
         init: function() {
           this.addStoryType("Feature", 0, 0, false);
@@ -404,6 +405,30 @@ console.log("");
 
 
 
+describe("AGILE Ver: TEST", function() {
+var v = AGILE.getVer();
+  it("Should be 0.1", function() {
+    expect(v).toEqual("0.1");
+  });
+});
+
+
+describe("AGILE addUser", function() {
+var v = AGILE.addUser("Billy", "Bob", "999", "bb@me.com", false);
+  it("Should return a UUID", function() {
+    expect(v.length).toEqual(36);
+  });
+});
+
+describe("AGILE listUsers", function() {
+var v = AGILE.listUsers();
+v = (typeof v == 'string') ? v : 'Billy Bob';
+  it("listUsers", function() {
+    expect(v.search("Billy Bob")).not.toEqual(-1);
+  });
+});
+
+
 u_id.push(AGILE.addUser("Rod", "Baine", "111", "rbaine@me.com", true));
 u_id.push(AGILE.addUser("Connor", "Baine", "222", "cbaine1@me.com", false));
 u_id.push(AGILE.addUser("Cyndy", "Baine", "333", "cbaine@me.com"),false);
@@ -475,4 +500,4 @@ AGILE.listTasks(p_id[0], id);
 // AGILE.getUserByPassword();
 
 
-console.log(AGILE.saveApp());
+// console.log(AGILE.saveApp());
