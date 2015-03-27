@@ -1,5 +1,5 @@
 
-var AGILE = require('../agile');
+var AGILE = require('../js/agile');
 
 
 
