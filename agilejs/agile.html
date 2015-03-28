@@ -138,7 +138,7 @@
 	        	 <br>
 	        	 <p>Options - <br>
 	        	 gridstack.js<br>
-	        	 http://farhadi.ir/projects/html5sortable/  <--**
+	        	 Angular-UI ui-sortable directive  <-- best choice
 	        	 </p>
 
 				<p>
@@ -157,12 +157,14 @@
 					<div class="left">
 					    <ul class="list-group grid source sortable connected" ui-sortable="sortableOptions" ng-model="itemsA" id="stories" >
 					      <li class="list-group-item" ng-repeat="item in itemsA">{{item}}</li>
+						  <li ng-show="itemsA.length==0">&nbsp;</li>
 					    </ul>
 					</div>
 
 					<div class="right">
 						<ul class="list-group grid target sortable connected no2" ui-sortable="sortableOptions" ng-model="itemsB" id="stories">
 							<li class="list-group-item" ng-repeat="item in itemsB">{{item}}</li>
+							<li ng-show="itemsB.length==0">&nbsp;</li>
 						</ul>
 					</div>
 					
