@@ -10,13 +10,15 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Symbience Agile</title>
+    <title>Symbience Clear Path Agile</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/cerulean.css">
+
     <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
-    <!-- <link rel="stylesheet" href="css/angular-snap.css"> -->
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
   </head>
 
@@ -28,36 +30,43 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button> -->
         <button type="button" class="navbar-toggle toggle-left " data-toggle="sidebar" data-target=".sidebar">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-          <a class="navbar-brand" href="#">Symbience Agile</a>
+        <a class="navbar-brand" href="#"><img alt="Symbience Clear Path Agile" src="img/logo.jpg"></a>
+        <a class="navbar-brand" href="#">Symbience ClearPath Agile</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <!-- <ul class="nav navbar-nav">
+            <li class="active"><a href="#">TEAM</a></li>
+            <li><a href="#about">BACKLOG</a></li>
+            <li><a href="#contact">KANBAN</a></li>
+            <li><a href="#contact">TESTS</a></li>
+            <li><a href="#contact">REPORTS</a></li>
+            <li><a href="#contact">SETTINGS</a></li>
+          </ul> -->
+
+          <ul class="nav navbar-nav navbar-right">
+
+			<li class="dropdown">
+				<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><strong>Project Name</strong><span class="caret"></span></a>
+              
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="#">Project 1</a></li>
+                <li><a href="#">Project 2</a></li>
+                <li><a href="#">Project 3</a></li>
+                <li><a href="#">Project 4</a></li>
               </ul>
             </li>
+
+
+          	<li><p class="navbar-text">Signed in as <a href="#" class="navbar-link" title="User Settings">Rod Baine <i class="fa fa-cog"></i></a></p></li>
+          	<li><a href="#" title="Logout"><span class="fa fa-sign-out fa-lg"></span></a></li>
+          	<li><a href="#" title="Help"><span class="fa fa-question-circle fa-lg"></span></a></li>
+            
+            
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -65,34 +74,52 @@
 
     <div class="container">
 
-      <div class="jumbotron">
-        <h2>AngularJS Version: {{ver}}</h2>
-        <p>This example is a quick exercise to test the pop-out control panel (snap.js)</p>
 
 
-      </div>
+
+      	<div class="panel panel-default">
+      	<div class="panel-body">
+
+
+		<nav class="navbar navbar">
+			<ul class="nav navbar-nav navbar-left">
+				<li><a href="#about">+Story</a></li>
+				<li><a href="#about">Delete</a></li>
+				<li><a href="#about">Archive</a></li>
+				<li><a href="#about">Type</a></li>
+				<li><a href="#about">State</a></li>
+				<li><a href="#about">Owner</a></li>
+				<li><a href="#about">Estimate</a></li>
+				<li><a href="#about">Time</a></li>
+				<li><a href="#about">Move</a></li>
+				<li><a href="#about">Iteration</a></li>
+			</ul>
+		</nav>
+
+
+
+        	<h2>AngularJS Version: {{ver}}</h2>
+        	<p>This example is a quick exercise to test the sidebar navigation panel (sidebar.js/css)</p>
+		</div>
+      	</div>
 
       <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate">
-      <div class="well well-sm">
           <ul class="nav navbar-stacked">
-            <li class="active">
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#about">About</a>
-            </li>
-            <li>
-              <a href="#contact">Contact</a>
-            </li>
+          	
+            <li><a href="#"><i class="fa fa-users"></i> TEAM</a></li>
+            <li><a href="#"><i class="fa fa-list"></i> BACKLOG</a></li>
+            <li><a href="#"><i class="fa fa-sliders"></i> KANBAN</a></li>
+            <li><a href="#"><i class="fa fa-eye"></i> TESTS</a></li>
+            <li><a href="#"><i class="fa fa-file-code-o"></i> REPORTS</a></li>
+            <li><a href="#"><i class="fa fa-cog"></i> SETTINGS</a></li>
           </ul>
-          <p>This is where a panel might go</p>
-          <p>Ver: {{ver}}</p>
-          <p><textarea> bla bla bla</textarea></p>
-          <p><input type="checkbox"/> Opt 1</p>
-          <p><input type="checkbox"/> Opt 2</p>
-          <p><input type="checkbox"/> Opt 3</p>
-          <button class="btn btn-primary" type="button" data-toggle="sidebar" data-target=".sidebar">Done</button>
-      </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+          <button class="btn btn-primary center-block" type="button" data-toggle="sidebar" data-target=".sidebar">Done</button>
+
       </div>
 
     </div> <!-- /container -->

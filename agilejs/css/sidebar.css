@@ -30,6 +30,7 @@
     min-height: 100%;
     max-height: none;
     overflow: auto;
+    background-color: rgb(248, 248, 248);
 }
 
 .sidebar-left {
