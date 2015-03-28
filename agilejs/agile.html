@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,13 +11,48 @@
 
     <title>Symbience Clear Path Agile</title>
 
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script type="text/javascript" src="js/sidebar.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/jquery.sortable.js"></script>
+
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/cerulean.css">
+    <!-- <link rel="stylesheet" href="css/cerulean.css"> -->
 
     <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/d-and-d.css">
+
+
+
+<script type="text/javascript">
+  $(function () {
+    $(".source, .target").sortable({
+      connectWith: ".connected"
+    });
+   
+  });
+
+ $(document).ready(function() 
+ {
+    $('#stories li').click(function(e) { 
+     	$('#val').val($(this).text()) ;
+     	$("#stories li").removeClass("active");
+  		$(this).addClass("active");
+    });
+
+    
+
+ });
+
+
+</script>
 
   </head>
 
@@ -35,24 +69,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><img alt="Symbience Clear Path Agile" src="img/logo.jpg"></a>
+        <a class="navbar-brand" href="#"><img alt="Symbience Clear Path Agile" src="img/logo.png"></a>
         <a class="navbar-brand" href="#">Symbience ClearPath Agile</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <!-- <ul class="nav navbar-nav">
-            <li class="active"><a href="#">TEAM</a></li>
-            <li><a href="#about">BACKLOG</a></li>
-            <li><a href="#contact">KANBAN</a></li>
-            <li><a href="#contact">TESTS</a></li>
-            <li><a href="#contact">REPORTS</a></li>
-            <li><a href="#contact">SETTINGS</a></li>
-          </ul> -->
-
           <ul class="nav navbar-nav navbar-right">
-
+          <li><p class="navbar-text"><strong>Project:</strong></p>
 			<li class="dropdown">
-				<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"><strong>Project Name</strong><span class="caret"></span></a>
-              
+				<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">Project Name will go here<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Project 1</a></li>
                 <li><a href="#">Project 2</a></li>
@@ -73,14 +97,8 @@
     </nav>
 
     <div class="container">
-
-
-
-
       	<div class="panel panel-default">
       	<div class="panel-body">
-
-
 		<nav class="navbar navbar">
 			<ul class="nav navbar-nav navbar-left">
 				<li><a href="#about">+Story</a></li>
@@ -95,46 +113,117 @@
 				<li><a href="#about">Iteration</a></li>
 			</ul>
 		</nav>
-
-
-
         	<h2>AngularJS Version: {{ver}}</h2>
         	<p>This example is a quick exercise to test the sidebar navigation panel (sidebar.js/css)</p>
 		</div>
       	</div>
 
-      <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate">
-          <ul class="nav navbar-stacked">
-          	
-            <li><a href="#"><i class="fa fa-users"></i> TEAM</a></li>
-            <li><a href="#"><i class="fa fa-list"></i> BACKLOG</a></li>
-            <li><a href="#"><i class="fa fa-sliders"></i> KANBAN</a></li>
-            <li><a href="#"><i class="fa fa-eye"></i> TESTS</a></li>
-            <li><a href="#"><i class="fa fa-file-code-o"></i> REPORTS</a></li>
-            <li><a href="#"><i class="fa fa-cog"></i> SETTINGS</a></li>
-          </ul>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+		<div class="panel panel-default">
+      	<div class="panel-body">
+        	<h2>Object Properties Pop-Up</h2>
+        	<p>This example is a quick exercise to test the modal pop-up dialog to be used to edit properties of objects like STORIES...</p>
+			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			  Open Object Properties Dialog
+			</button>
+		</div>
+      	</div>
 
-          <button class="btn btn-primary center-block" type="button" data-toggle="sidebar" data-target=".sidebar">Done</button>
+		<div class="panel panel-default">
+	      	<div class="panel-body">
+	        	<h2>Storyboard / Grid Section</h2>
+	        	<p>This example is a quick exercise to test the drag/drop grid system...<br>
+	        	 - It should be able to display tiles in multiple format (List View, Tile Viewm, etc)<br>
+	        	 - It should support drag and drop to re-order stories</p>
+	        	 <br>
+	        	 <p>Options - <br>
+	        	 gridstack.js<br>
+	        	 http://farhadi.ir/projects/html5sortable/  <--**
+	        	 </p>
 
-      </div>
+				<p>
+				
+				</p>
+
+			</div>
+      	</div>
+
+      	<div class="panel panel-default">
+	      	<div class="panel-body">
+	      		<h2>Drag & Drop Grid Example</h2>
+	      		Card: <input type="text" id="val">
+	      		<hr>
+		      	<section>
+					<div class="left">
+					    <ul class="list-group grid source sortable connected" id="stories">
+					      <li class="list-group-item">#100</li>
+					      <li class="list-group-item">#101</li>
+					      <li class="list-group-item">#102</li>
+					      <li class="list-group-item">#103</li>
+					      <li class="list-group-item">#104</li>
+					      <li class="list-group-item">#105</li>
+					      <li class="list-group-item">#106</li>
+					    </ul>
+					</div>
+
+					<div class="right">
+						<ul class="list-group grid target sortable connected no2" id="stories">
+							<li class="list-group-item">#000</li>
+						</ul>
+					</div>
+
+
+					</div>
+
+	      	</section>
+	    </div>
 
     </div> <!-- /container -->
 
 
+
+
+
+	<div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate">
+		<ul class="nav navbar-stacked">
+		<li><a href="#"><i class="fa fa-users"></i> TEAM</a></li>
+			<li><a href="#"><i class="fa fa-list"></i> BACKLOG</a></li>
+			<li><a href="#"><i class="fa fa-sliders"></i> KANBAN</a></li>
+			<li><a href="#"><i class="fa fa-eye"></i> TESTS</a></li>
+			<li><a href="#"><i class="fa fa-file-code-o"></i> REPORTS</a></li>
+			<li><a href="#"><i class="fa fa-cog"></i> SETTINGS</a></li>
+		</ul>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<button class="btn btn-primary center-block" type="button" data-toggle="sidebar" data-target=".sidebar">Done</button>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Object Properties</h4>
+	      </div>
+	      <div class="modal-body">
+	      	Can use bootstrap grid or form here to show object properties... perhaps ng-view...?
+	        ...<br>
+			See docs here <a href="http://getbootstrap.com/javascript/#modals">Docs</a>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
     <!-- Bootstrap core JavaScript, jQuery, AngularJS
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-    <!-- <script type="text/javascript" src="js/snap.js"></script> -->
-    <!-- <script type="text/javascript" src="js/angular-snap.js"></script> -->
-    <script type="text/javascript" src="js/sidebar.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    
 
   </body>
 </html>
