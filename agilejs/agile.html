@@ -34,7 +34,8 @@
     <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/d-and-d.css">
+    <!-- <link rel="stylesheet" href="css/d-and-d.css"> -->
+    <link rel="stylesheet" href="css/dd-grid.css">
 
 
 
@@ -42,11 +43,11 @@
 
  $(document).ready(function() 
  {
-    $('#stories li').click(function(e) { 
-     	$('#val').val($(this).text()) ;
-     	$("#stories li").removeClass("active");
-  		$(this).addClass("active");
-    });
+    // $('.story-container .story').click(function(e) { 
+    //  	$('#val').val($(this).text()) ;
+    //  	$(".story-container .story").removeClass("active");
+  		// $(this).addClass("active");
+    // });
 
     
 
@@ -101,18 +102,6 @@
       	<div class="panel panel-default">
       	<div class="panel-body">
 		<nav class="navbar navbar">
-			<ul class="nav navbar-nav navbar-left">
-				<li><a href="#about">+Story</a></li>
-				<li><a href="#about">Delete</a></li>
-				<li><a href="#about">Archive</a></li>
-				<li><a href="#about">Type</a></li>
-				<li><a href="#about">State</a></li>
-				<li><a href="#about">Owner</a></li>
-				<li><a href="#about">Estimate</a></li>
-				<li><a href="#about">Time</a></li>
-				<li><a href="#about">Move</a></li>
-				<li><a href="#about">Iteration</a></li>
-			</ul>
 		</nav>
         	<h2>AngularJS Version: {{ver}}</h2>
         	<p>This example is a quick exercise to test the sidebar navigation panel (sidebar.js/css)</p>
@@ -148,31 +137,48 @@
 			</div>
       	</div>
 
+
+      	<div class="panel panel-danger">
+      		  <div class="panel-heading">
+      				<h3 class="panel-title">Panel title</h3>
+      		  </div>
+      		  <div class="panel-body">
+      				Panel content
+      		  </div>
+      	</div>
+
       	<div class="panel panel-default">
 	      	<div class="panel-body">
 	      		<h2>Drag & Drop Grid Example</h2>
-	      		Card: <input type="text" id="val">
+	      		Card: <input type="text" id="val" ng-model="curCard">
+	      		<select ng-model="listType" ng-change="updateView()">
+	      			<option ng-repeat="view in listTypes">{{view}}</option>
+	      		</select>
 	      		<hr>
-		      	<section>
-					<div class="left">
-					    <ul class="list-group grid source sortable connected" ui-sortable="sortableOptions" ng-model="itemsA" id="stories" >
-					      <li class="list-group-item" ng-repeat="item in itemsA">{{item}}</li>
-						  <li ng-show="itemsA.length==0">&nbsp;</li>
-					    </ul>
+					<div class="floatleft">
+					    <div ui-sortable="sortableOptions" class="story-container stories" ng-model="itemsA">
+							<div ng-class="((listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in itemsA" ng-click="select(item)" >
+								<span class="glyphicon glyphicon-paperclip"></span>
+								{{item.id}}
+								<!-- <h5>[{{$index}}]</h5> -->
+							</div>
+						</div>
 					</div>
 
-					<div class="right">
-						<ul class="list-group grid target sortable connected no2" ui-sortable="sortableOptions" ng-model="itemsB" id="stories">
-							<li class="list-group-item" ng-repeat="item in itemsB">{{item}}</li>
-							<li ng-show="itemsB.length==0">&nbsp;</li>
-						</ul>
+					<div class="floatright">
+						<div ui-sortable="sortableOptions" class="story-container iterations" ng-model="itemsB">
+							<div ng-class="((listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in itemsB" ng-click="select(item)">
+								<span class="glyphicon glyphicon-paperclip"></span>
+								{{item.id}}
+								<!-- <h5>[{{$index}}]</h5> -->
+							</div>
+						</div>
 					</div>
 					
-
-					</div>
-					<button type="button" class="btn btn-primary btn-lg" ng-click="listStories()">List</button>
-
-	      	</section>
+	      			<div class="clear">
+	      				<textarea rows="5" cols="70">{{modelList}}</textarea>
+	      				<button type="button" class="btn btn-primary btn-lg" ng-click="listStories()">List</button>
+	      			</div>	
 	    </div>
 
     </div> <!-- /container -->
@@ -225,3 +231,4 @@
 
   </body>
 </html>
+
