@@ -1,0 +1,81 @@
+
+"_id" :
+"plan" : 0,
+"enableIterations" : true,
+"enableAcceptanceCriteria" : true,
+"enableTests" : true,
+"enableTimeTracking" : true,
+"agileEstimationType" : 0,
+
+
+
+
+db.users.insert(
+ {
+
+     "id" : 99,
+     "firstname" : "Joe",
+     "lastname" : "User",
+     "password" : "password",
+     "email" : "juser@me.com",
+     "admin" : false
+ }
+ )
+
+
+ db.users.remove(
+ {"id": 99}
+ )
+
+
+db.users.update(
+    {"id" : 99 },
+    {$set: 
+        {"admin" : false, "email" : "jsmith@me.com"} 
+    }
+)
+
+
+db.users.find({"email" : "connbaine@gmail.com"}).count()
+
+db.users.createIndex( { id: 1 }, { unique: true } )
+
+
+
+db.projects.insert(
+ {
+
+     "name" : "Sample Project Name"
+ }
+ )
+
+
+ db.stories.insert(
+{
+        "title" : "this is a story title",
+        "description" : "This is a story description.. it can be quite long.",
+        "tags" : "js, vb6, feature",
+        "type" : "Feature",
+        "owner" : 0,
+        "state" : undefined,
+        "iteration" : 0,
+        "blocked" : false,
+        "agileEstimate" : 3,
+        "originalTimeEstimate" : 5,
+        "timeSpent" : 0
+}
+ )
+
+
+
+
+ project.update 04/07/2015 17:27:26
+{ [MongoError: After applying the update to the document {_id: ObjectId('552473fb1427a924142847bb') , ...}, the (immutab
+le) field '_id' was found to have been altered to         _id: "552473fb1427a924142847bb"]
+  name: 'MongoError',
+  message: 'After applying the update to the document {_id: ObjectId(\'552473fb1427a924142847bb\') , ...}, the (immutabl
+e) field \'_id\' was found to have been altered to _id: "552473fb1427a924142847bb"',
+  index: 0,
+  code: 66,
+  errmsg: 'After applying the update to the document {_id: ObjectId(\'552473fb1427a924142847bb\') , ...}, the (immutable
+) field \'_id\' was found to have been altered to _id: "552473fb1427a924142847bb"' }

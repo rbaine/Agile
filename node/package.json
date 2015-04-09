@@ -1,0 +1,20 @@
+{
+  "name": "Agile_Node",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "multer": "*",
+    "mongodb": "*",
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-rename": "*",
+    "map-stream": "*",
+    "gulp-livereload": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*",
+    "gulp-jshint": "*",
+    "gulp-todo": "*"
+  }
+}
