@@ -59,11 +59,12 @@ var dbCollection = "storytypes";
             }); 
         },
 
-        list: function (db, callback) {
+        list: function (db, projectid, callback) {
+            var where = {projectId: projectid};
             var d = new Date();
             console.log('storytypes.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
-            collection.find().sort({"_id":ASC}).toArray(function (err, data) {
+            collection.find(where).sort({"_id":ASC}).toArray(function (err, data) {
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
             });

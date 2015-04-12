@@ -1,7 +1,7 @@
 var Task = (function () {
 "use strict";
 var ObjectID = require('mongodb').ObjectID;
-var logDateFormat = 'MM/dd/yyyy hh:mm:ss';
+var logDateFormat = "MM/dd/yyyy hh:mm:ss";
 var ASC = 1;
 var DESC = -1;
 var dbCollection = "tasks";
@@ -48,9 +48,9 @@ var dbCollection = "tasks";
             data._id = o_id;
 
             var where = { _id: o_id };
-            var upd = {'$set': data};
+            var upd = {"$set": data};
             var d = new Date();
-            console.log('task.put ' + d.format(logDateFormat));
+            console.log("task.put " + d.format(logDateFormat));
             console.log(data);
             console.log(where);
             console.log(upd);
@@ -65,8 +65,8 @@ var dbCollection = "tasks";
             var collection = db.collection(dbCollection);
             var where = { storyId : storyid };
             var d = new Date();
-            console.log('task.list ' + d.format(logDateFormat));
-            collection.find().sort({"seq":ASC}).toArray(function (err, data) {
+            console.log("task.list " + d.format(logDateFormat));
+            collection.find(where).sort({"seq":ASC}).toArray(function (err, data) {
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
             });
         }

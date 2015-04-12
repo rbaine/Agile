@@ -61,11 +61,12 @@ var dbCollection = "projects";
             }); 
         },
 
-        list: function (db, callback) {
+        list: function (db, accountid, callback) {
+            var where = {accountId: accountid};
             var d = new Date();
             console.log('project.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
-            collection.find().sort({"id":ASC}).toArray(function (err, data) {
+            collection.find(where).sort({"id":ASC}).toArray(function (err, data) {
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
             });

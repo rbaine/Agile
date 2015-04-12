@@ -69,7 +69,31 @@ var dbCollection = "stories";
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
             });
-        }
+        },
+        full: function (db, id, callback) {
+                var colStories = db.collection("stories");
+                var colTasks = db.collection("tasks");
+
+                var o_id = new ObjectID(id.toString());
+                var where = {_id: o_id};
+
+                var _t = this;
+                var story = null;
+                var tasks = null;
+
+                colStories.findOne(where, function (err, data) {
+                    _t.story = (data !== null) ? data : {};
+
+                    colTasks.find({storyId : o_id.toString()}).toArray(function (err, data) {
+                        _t.tasks = (data !== null) ? data : [];
+                        _t.story.tasks = _t.tasks;
+                        callback(JSON.stringify( _t.story));
+                    });
+                });
+
+
+
+        },
     };
 
 })();

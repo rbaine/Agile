@@ -7,11 +7,15 @@ var multer = require('multer');
 var Utils = require('./utils');
 
 var Account = require('./account');
+var State = require('./state');
+var AgileEstimation = require('./agileestimation');
+var AgileEstimationType = require('./agileestimationtype');
 var User = require('./user');
 var Project = require('./project');
+var Team = require('./team');
 var Story = require('./story');
 var StoryType = require('./storytype');
-// var TaskType = require('./tasktype');
+var TaskType = require('./tasktype');
 var Task = require('./task');
 var Iteration = require('./iteration');
 var AcceptanceCriteria  = require('./acceptancecriteria');
@@ -32,8 +36,103 @@ app.use(multer()); // for parsing multipart/form-data
 
 
 
-//TODO: New TASKTYPE constructor (Chad)
-//TODO: Create STATE List
+
+
+
+
+
+// ***** AGILE ESTIMATION ROUTES *****
+app.get('/agileestimation/:id', function (request, response){
+     AgileEstimation.get(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.get('/agileestimationList/:agileestimationtype', function (request, response){
+    AgileEstimation.list(_this.dbConn, request.params.agileestimationtype, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+// ***** AGILE ESTIMATION TYPE ROUTES *****
+app.get('/agileestimationtypeList', function (request, response){
+    AgileEstimationType.list(_this.dbConn, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+// ***** STATE ROUTES *****
+app.get('/state/:id', function (request, response){
+     State.get(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.get('/stateList/:projectid', function (request, response){
+    State.list(_this.dbConn, request.params.projectid, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.delete('/state/:id', function (request, response){
+    State.delete(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.post('/state', function (request, response){
+    var data = request.body;
+    State.post(_this.dbConn, data, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.put('/state', function (request, response){
+    var data = request.body;
+    State.put(_this.dbConn, data, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+
+
+// ***** TEAM ROUTES *****
+app.get('/team/:id', function (request, response){
+     Team.get(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.get('/teamList/:projectid', function (request, response){
+    Team.list(_this.dbConn, request.params.projectid, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.delete('/team/:id', function (request, response){
+    Team.delete(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.post('/team', function (request, response){
+    var data = request.body;
+    Team.post(_this.dbConn, data, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
 
 
 // ***** USER ROUTES *****
@@ -89,8 +188,8 @@ app.get('/project/:id', function(request, response) {
 	});
 });
 
-app.get('/projectList', function (request, response){
-	Project.list(_this.dbConn, function (data){
+app.get('/projectList/:accountid', function (request, response){
+	Project.list(_this.dbConn, request.params.accountid, function (data){
 		response.type('application/json');
 		response.send( data );
 	});
@@ -166,8 +265,8 @@ app.get('/storyType/:id', function(request, response) {
 	});
 });
 
-app.get('/storyTypeList', function (request, response){
-	StoryType.list(_this.dbConn, function (data){
+app.get('/storyTypeList/:projectid', function (request, response){
+	StoryType.list(_this.dbConn, request.params.projectid, function (data){
 		response.type('application/json');
 		response.send( data );
 	});
@@ -242,6 +341,26 @@ app.get('/story/:id', function(request, response) {
         response.send( data );
     });
 });
+
+
+//todo: testing collection joins
+app.get('/storyFull/:id', function(request, response) {
+    Story.full(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+    // var t = this;
+    // var s = "";
+    // Story.get(_this.dbConn, request.params.id, function (data){
+    //     t.s = JSON.parse(data);
+    //     Task.list(_this.dbConn, request.params.id, function (data){
+    //         t.s.tasks = JSON.parse(data);
+    //         response.type('application/json');
+    //         response.send( t.s );
+    //     });
+    // });
+});
+
 
 app.get('/storyList/:projectid', function (request, response){
     Story.list(_this.dbConn, request.params.projectid, function (data){
@@ -394,6 +513,45 @@ app.put('/testrun', function (request, response){
 });
 
 
+// ***** TASKTYPE ROUTES *****
+app.get('/tasktype/:id', function(request, response) {
+    TaskType.get(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.get('/tasktypeList/:projectid', function (request, response){
+    TaskType.list(_this.dbConn, request.params.projectid, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.delete('/tasktype/:id', function (request, response){
+    TaskType.delete(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.post('/tasktype', function (request, response){
+    var data = request.body;
+    TaskType.post(_this.dbConn, data, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+app.put('/tasktype', function (request, response){
+    var data = request.body;
+    TaskType.put(_this.dbConn, data, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+
 // ***** TASK ROUTES *****
 app.get('/task/:id', function(request, response) {
 	Task.get(_this.dbConn, request.params.id, function (data){
@@ -431,6 +589,7 @@ app.get('/taskList/:storyid', function(request, response) {
 		response.send( data );
 	});
 });
+
 
 
 
