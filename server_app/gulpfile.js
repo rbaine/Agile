@@ -12,6 +12,12 @@ console.log("yo.. in gulpfile...");
 // Lint Task
 gulp.task('lint', function() {
     console.log('linting...');
+    return gulp.src('app.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
+gulp.task('lint', function() {
     return gulp.src('js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
@@ -19,9 +25,8 @@ gulp.task('lint', function() {
 
 // get filenames relative to project root (where your gulpfile is) 
 gulp.task('todo', function() {
-    gulp.src('js/*.js')
-        .pipe(todo())
-        .pipe(gulp.dest('./'));
+    gulp.src('app.js').pipe(todo()).pipe(gulp.dest('./'));
+    gulp.src('js/*.js').pipe(todo()).pipe(gulp.dest('./'));
 });
 
 // Concatenate & Minify JS

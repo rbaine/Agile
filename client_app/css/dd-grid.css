@@ -1,0 +1,90 @@
+section {
+      display: block;
+    }
+
+.story-container {
+  border: 2px solid #B2B2B2;
+  border-radius: 5px;
+  margin: 5px 5px 5px 5px;
+  padding: 15px;
+  min-width:200px;
+  min-height:50px;
+  overflow: hidden;
+  height: 500px;
+}
+
+.story-grid {
+	width: 90px;
+	height: 75px;
+	padding: 2px 2px 2px 2px;
+	margin: 5px 5px 5px 5px;
+	border: 1px solid #143D66;
+	border-radius: 3px;
+	background-color: #85C2FF;
+	font-size: 1.1em;
+	text-align: center;
+	cursor: move;
+	float: left;
+}
+
+.story-list {
+	width: 300px;
+	height: 25px;
+	padding: 2px 2px 2px 2px;
+	margin: 5px 5px 5px 5px;
+	border: 1px solid #143D66;
+	border-radius: 3px;
+	background-color: #85C2FF;
+	font-size: .9em;
+	text-align: left;
+	cursor: move;
+	float: left;
+}
+
+.active {
+	border: 2px solid #000099;
+	background-color: #005CE6;
+	color: #FFFFFF;
+}
+
+.placeholder-grid {
+	width: 90px;
+	height: 75px;
+	padding: 2px 2px 2px 2px;
+	margin: 5px 5px 5px 5px;
+	border: 1px solid #FF9900;
+	border-radius: 3px;
+	background-color: #FFE0B2;
+	cursor: move;
+	float: left;
+}
+
+.placeholder-list {
+	width: 310px;
+	height: 30px;
+	padding: 2px 2px 2px 2px;
+	margin: 5px 5px 5px 5px;
+	border: 1px solid #FF9900;
+	border-radius: 3px;
+	background-color: #FFE0B2;
+	cursor: move;
+	float: left;
+}
+
+
+/***  Extra ***/
+
+
+.floatleft {
+  float: left;
+  width: 50%;
+}
+
+.floatright {
+  float: left;
+  width: 50%;
+}
+
+.clear {
+  clear: both;
+}

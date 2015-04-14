@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Symbience Clear Path Agile</title>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.js"></script>
+    
+    <script type="text/javascript" src="js/sidebar.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery.sortable.js"></script> -->
+    <script type="text/javascript" src="js/sortable.js"></script>
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/cerulean.css"> -->
+
+    <link rel="stylesheet" type="text/css" href="css/navbar-fixed-top.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="css/d-and-d.css"> -->
+    <link rel="stylesheet" href="css/dd-grid.css">
+
+
+
+<script type="text/javascript">
+
+ $(document).ready(function() 
+ {
+    // $('.story-container .story').click(function(e) { 
+    //  	$('#val').val($(this).text()) ;
+    //  	$(".story-container .story").removeClass("active");
+  		// $(this).addClass("active");
+    // });
+
+    
+
+ });
+
+
+</script>
+
+  </head>
+
+  <body ng-app="app" ng-controller="MainCtrl">
+
+
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle toggle-left " data-toggle="sidebar" data-target=".sidebar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img alt="Symbience Clear Path Agile" src="img/logo.png"></a>
+        <a class="navbar-brand" href="#">Symbience ClearPath Agile</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+          <li><p class="navbar-text"><strong>Project:</strong></p>
+			<li class="dropdown">
+				<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">Project Name will go here<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Project 1</a></li>
+                <li><a href="#">Project 2</a></li>
+                <li><a href="#">Project 3</a></li>
+                <li><a href="#">Project 4</a></li>
+              </ul>
+            </li>
+
+
+          	<li><p class="navbar-text">Signed in as <a href="#" class="navbar-link" title="User Settings">Rod Baine <i class="fa fa-cog"></i></a></p></li>
+          	<li><a href="#" title="Logout"><span class="fa fa-sign-out fa-lg"></span></a></li>
+          	<li><a href="#" title="Help"><span class="fa fa-question-circle fa-lg"></span></a></li>
+            
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      	<div class="panel panel-default">
+      	<div class="panel-body">
+		<nav class="navbar navbar">
+		</nav>
+        	<h2>AngularJS Version: {{ver}}</h2>
+        	<p>This example is a quick exercise to test the sidebar navigation panel (sidebar.js/css)</p>
+		</div>
+      	</div>
+
+		<div class="panel panel-default">
+      	<div class="panel-body">
+        	<h2>Object Properties Pop-Up</h2>
+        	<p>This example is a quick exercise to test the modal pop-up dialog to be used to edit properties of objects like STORIES...</p>
+			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			  Open Object Properties Dialog
+			</button>
+		</div>
+      	</div>
+
+		<div class="panel panel-default">
+	      	<div class="panel-body">
+	        	<h2>Storyboard / Grid Section</h2>
+	        	<p>This example is a quick exercise to test the drag/drop grid system...<br>
+	        	 - It should be able to display tiles in multiple format (List View, Tile Viewm, etc)<br>
+	        	 - It should support drag and drop to re-order stories</p>
+	        	 <br>
+	        	 <p>Options - <br>
+	        	 gridstack.js<br>
+	        	 Angular-UI ui-sortable directive  <-- best choice
+	        	 </p>
+
+				<p>
+				
+				</p>
+
+			</div>
+      	</div>
+
+
+      	<div class="panel panel-danger">
+      		  <div class="panel-heading">
+      				<h3 class="panel-title">Panel title</h3>
+      		  </div>
+      		  <div class="panel-body">
+      				Panel content
+      		  </div>
+      	</div>
+
+      	<div class="panel panel-default">
+	      	<div class="panel-body">
+	      		<h2>Drag & Drop Grid Example</h2>
+	      		Card: <input type="text" id="val" ng-model="curCard">
+	      		<select ng-model="listType" ng-change="updateView()">
+	      			<option ng-repeat="view in listTypes">{{view}}</option>
+	      		</select>
+	      		<hr>
+					<div class="floatleft">
+					    <div ui-sortable="sortableOptions" class="story-container stories" ng-model="itemsA">
+							<div ng-class="((listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in itemsA" ng-click="select(item)" >
+								<span class="glyphicon glyphicon-paperclip"></span>
+								{{item.id}}
+								<!-- <h5>[{{$index}}]</h5> -->
+							</div>
+						</div>
+					</div>
+
+					<div class="floatright">
+						<div ui-sortable="sortableOptions" class="story-container iterations" ng-model="itemsB">
+							<div ng-class="((listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in itemsB" ng-click="select(item)">
+								<span class="glyphicon glyphicon-paperclip"></span>
+								{{item.id}}
+								<!-- <h5>[{{$index}}]</h5> -->
+							</div>
+						</div>
+					</div>
+					
+	      			<div class="clear">
+	      				<textarea rows="5" cols="70">{{modelList}}</textarea>
+	      				<button type="button" class="btn btn-primary btn-lg" ng-click="listStories()">List</button>
+	      			</div>	
+	    </div>
+
+    </div> <!-- /container -->
+
+
+
+
+
+	<div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate">
+		<ul class="nav navbar-stacked">
+		<li><a href="#"><i class="fa fa-users"></i> TEAM</a></li>
+			<li><a href="#"><i class="fa fa-list"></i> BACKLOG</a></li>
+			<li><a href="#"><i class="fa fa-sliders"></i> KANBAN</a></li>
+			<li><a href="#"><i class="fa fa-eye"></i> TESTS</a></li>
+			<li><a href="#"><i class="fa fa-file-code-o"></i> REPORTS</a></li>
+			<li><a href="#"><i class="fa fa-cog"></i> SETTINGS</a></li>
+		</ul>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<button class="btn btn-primary center-block" type="button" data-toggle="sidebar" data-target=".sidebar">Done</button>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Object Properties</h4>
+	      </div>
+	      <div class="modal-body">
+	      	Can use bootstrap grid or form here to show object properties... perhaps ng-view...?
+	        ...<br>
+			See docs here <a href="http://getbootstrap.com/javascript/#modals">Docs</a>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+    <!-- Bootstrap core JavaScript, jQuery, AngularJS
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+
+  </body>
+</html>
+

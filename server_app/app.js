@@ -4,23 +4,23 @@ var MongoDB = require('mongodb').MongoClient;
 var Express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer'); 
-var Utils = require('./utils');
+var Utils = require('./js/utils');
 
-var Account = require('./account');
-var State = require('./state');
-var AgileEstimation = require('./agileestimation');
-var AgileEstimationType = require('./agileestimationtype');
-var User = require('./user');
-var Project = require('./project');
-var Team = require('./team');
-var Story = require('./story');
-var StoryType = require('./storytype');
-var TaskType = require('./tasktype');
-var Task = require('./task');
-var Iteration = require('./iteration');
-var AcceptanceCriteria  = require('./acceptancecriteria');
-var Test = require('./test');
-var TestRun = require('./testrun');
+var Account = require('./js/account');
+var State = require('./js/state');
+var AgileEstimation = require('./js/agileestimation');
+var AgileEstimationType = require('./js/agileestimationtype');
+var User = require('./js/user');
+var Project = require('./js/project');
+var Team = require('./js/team');
+var Story = require('./js/story');
+var StoryType = require('./js/storytype');
+var TaskType = require('./js/tasktype');
+var Task = require('./js/task');
+var Iteration = require('./js/iteration');
+var AcceptanceCriteria  = require('./js/acceptancecriteria');
+var Test = require('./js/test');
+var TestRun = require('./js/testrun');
 
 var app = Express();
 
@@ -33,11 +33,6 @@ var _this = this;
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(multer()); // for parsing multipart/form-data
-
-
-
-
-
 
 
 
@@ -591,6 +586,14 @@ app.get('/taskList/:storyid', function(request, response) {
 });
 
 
+
+
+/* serves all the static files */
+ app.get(/^(.+)$/, function(req, res){ 
+     // console.log('dir : ' + __dirname);
+     console.log('static file request : ' + req.params);
+     res.sendFile( __dirname + req.params[0]); 
+ });
 
 
 

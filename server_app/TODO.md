@@ -1,4 +1,4 @@
 ### TODOs
 | Filename | line # | TODO
 |:------|:------:|:------
-| app.js | 346 | testing collection joins
+| app.js | 341 | testing collection joins

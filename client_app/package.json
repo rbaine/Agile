@@ -1,0 +1,15 @@
+{
+  "name": "Agile_App",
+  "version": "0.0.1",
+  "dependencies": {
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-rename": "*",
+    "gulp-livereload": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*",
+    "gulp-jshint": "*",
+    "gulp-todo": "*"
+  }
+}

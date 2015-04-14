@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<style type="text/css">
+	.xdiv {
+		border-width: 1px;
+		border-style: dashed;
+		border-color: #A1A1A1;
+	}
+	
+</style>
+
+</head>
+<body>
+		<br/>
+		<br/>
+		<br/>
+
+	<div class="container">
+		<div role="tabpanel">
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#acct" aria-controls="home" role="tab" data-toggle="tab">Account</a></li>
+				<li role="presentation"><a href="#plan" aria-controls="profile" role="tab" data-toggle="tab">Plan</a></li>
+				<li role="presentation"><a href="#projects" aria-controls="messages" role="tab" data-toggle="tab">Projects</a></li>
+				<li role="presentation"><a href="#notification" aria-controls="settings" role="tab" data-toggle="tab">Notification</a></li>
+				<li role="presentation"><a href="#email" aria-controls="settings" role="tab" data-toggle="tab">Email</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+			<!-- Account Tab -->
+				<div role="tabpanel" class="tab-pane active" id="acct">
+					<form action="" method="POST" class="form-horizontal" role="form">
+						<div class="well">
+						
+
+													
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">First Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="inputEmail3" placeholder="First Name">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">Last Name</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="inputEmail3" placeholder="Last Name">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">Email Address</label>
+								<div class="col-sm-10">
+									<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+								<div class="col-sm-10">
+									<input type="password" class="form-control" id="inputEmail3" placeholder="Password">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">Avatar</label>
+								<div class="col-sm-10">
+									<img src="http://placehold.it/150x150">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-2">
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</div>
+
+						</div>							
+					</form> 
+				<!-- [END] Account Tab -->
+				</div>
+				
+				<div role="tabpanel" class="tab-pane" id="plan">
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="projects">
+				<!-- Projects Tab -->
+					<div class="panel panel-default">
+						<div class="panel-body">
+						<!-- New Project Form -->
+							<form action="" method="POST" class="form-horizontal" role="form">
+						   		<div class="form-group">
+						   			<legend>New Project</legend>
+						   		</div>
+
+							   	<div class="form-group">
+									<label for="inputEmail3" class="col-sm-2 control-label">New Project</label>
+									<div class="col-sm-6">
+										<input type="email" class="form-control" id="inputEmail3" placeholder="Enter your project name here...">
+									</div>
+									<div class="col-sm-2">
+						   				<button type="submit" class="btn btn-primary">Create Project</button>
+						   			</div>
+								</div>
+						   </form>
+						<!-- [END] New Project Form -->
+							<br>
+							<br>
+							<br>
+						<!-- Current Project List -->
+						   			<legend>Current Projects</legend>
+						   			<p>You are a member or owner of the following projects.  You can leave any project you are a member of, or you may delete any project that you are an owner of.</p>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Project Name</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Sample project name 1</td>
+										<td><button type="button" class="btn btn-danger">Delete</button></td>
+									</tr>
+									<tr>
+										<td>Sample project name 2</td>
+										<td><button type="button" class="btn btn-danger">Delete</button></td>
+									</tr>
+									<tr>
+										<td>Sample project name 3</td>
+										<td><button type="button" class="btn btn-primary">Leave</button></td>
+									</tr>
+								</tbody>
+							</table>
+
+						<!-- [END] Current Project List -->
+						</div>
+					</div>
+				<!-- [END] Projects Tab -->	
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="notification">
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="email">
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -27,7 +27,7 @@ var dbCollection = "users";
                 console.log('user.getByEmail ' + d.format(logDateFormat));
                 collection.find(where).count(function (err, cnt) {
                     if (err || null) console.log(err);
-                    callback(data !== null ? JSON.stringify({"count" : cnt}) : JSON.stringify(err));
+                    callback(cnt !== null ? JSON.stringify({"count" : cnt}) : JSON.stringify(err));
                 });
         },
 
@@ -43,8 +43,9 @@ var dbCollection = "users";
         },
 
         delete: function (db, uid, callback) {
+            var o_id = new ObjectID(uid.toString());
             var collection = db.collection(dbCollection);
-            var where = {id: Number(uid)};
+            var where = {_id: o_id};
             var d = new Date();
             console.log('user.delete ' + d.format(logDateFormat));
 
