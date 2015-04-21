@@ -1,0 +1,126 @@
+
+
+
+
+  <tabset justified="false">
+    <tab heading="Account">
+    	<form action="" class="form-horizontal" role="form">
+				<div class="well">
+					<h4>Account</h4>
+
+											
+					<div class="form-group">
+						<label for="firstName" class="col-sm-2 control-label">First Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="agileApp.User.firstName">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="lastName" class="col-sm-2 control-label">Last Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="agileApp.User.lastName">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="col-sm-2 control-label">Email Address</label>
+						<div class="col-sm-6">
+							<input type="email" class="form-control" id="email" placeholder="Email" ng-model="agileApp.User.email">
+						</div>
+					</div>
+
+<!-- 					<div class="form-group">
+						<label for="password" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="password" placeholder="Password"  ng-model="agileApp.User.password">
+						</div>
+					</div> -->
+
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">Avatar</label>
+						<div class="col-sm-10">
+							<img src="http://placehold.it/150x150">
+						</div>
+					</div>
+
+					
+
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2">
+							<button type="submit" class="btn btn-primary">Save</button>
+							<button type="button" class="btn btn-warning">Change Password</button>
+						</div>
+					</div>
+
+				</div>
+			
+			</form> 
+    </tab>
+    
+    <tab heading="Plan">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>
+    </tab>
+    
+    <tab heading="Projects">
+    	<div class="well">
+			<form class="form-horizontal" role="form" name="form" ng-submit="agileApp.newProject( agileApp.projectForm )" novalidate>
+				<legend>New Project</legend>
+			   	<div class="form-group">
+					<label for="project" class="col-sm-2 control-label">New Project</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="project" placeholder="Enter your project name here..." ng-model="agileApp.projectForm.name" required>
+					</div>
+					<div class="col-sm-2">
+							<button type="submit" class="btn btn-primary" ng-disabled="!form.$valid">Create Project</button>
+						</div>
+				</div>
+			</form>
+			<!-- [END] New Project Form -->
+			<br>
+			<br>
+			<br>
+			<!-- Current Project List -->
+			<legend>Current Projects</legend>
+			<p>You are a member or owner of the following projects.  You can leave any project you are a member of, or you may delete any project that you are an owner of.</p>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Project Name</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="project in agileApp.Projects">
+						<td>{{project.name}}</td>
+						<td><button type="button" class="btn btn-danger" ng-click="agileApp.projectDelete(project._id)">Delete</button></td>
+					</tr>
+<!-- 					<tr>
+						<td>Sample project name 2</td>
+						<td><button type="button" class="btn btn-danger">Delete</button></td>
+					</tr>
+					<tr>
+						<td>Sample project name 3</td>
+						<td><button type="button" class="btn btn-primary">Leave</button></td>
+					</tr> -->
+				</tbody>
+			</table>
+		</div>
+    </tab>
+    
+    <tab heading="Notifications">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+		</div>
+    </tab>
+    
+    <tab heading="Email">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>
+    </tab>
+  </tabset>
+
+

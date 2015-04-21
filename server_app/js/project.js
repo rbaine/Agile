@@ -12,7 +12,6 @@ var dbCollection = "projects";
                 var o_id = new ObjectID(id.toString());
                 var where = {_id: o_id};
                 var d = new Date();
-                console.log('project.get ' + d.format(logDateFormat));
                 collection.findOne(where, function (err, data) {
                     if (err || null) console.log(err);
                     callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -22,8 +21,6 @@ var dbCollection = "projects";
         post: function (db, data, callback) {
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('project.post ' + d.format(logDateFormat));
-            
             collection.insert(data, function(err, data){
                 if (err || null) {console.log(err); data = err;}
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -36,8 +33,6 @@ var dbCollection = "projects";
             var where = {_id: o_id};
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('project.delete ' + d.format(logDateFormat));
-
             collection.remove(where, function(err, data){
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -53,7 +48,6 @@ var dbCollection = "projects";
             var collection = db.collection(dbCollection);
             var upd = {'$set': data};
             var d = new Date();
-            console.log('project.put ' + d.format(logDateFormat));
             
             collection.update(where, upd, function (err, data){
                 if (err || null) console.log(err);
@@ -61,12 +55,11 @@ var dbCollection = "projects";
             }); 
         },
 
-        list: function (db, accountid, callback) {
-            var where = {accountId: accountid};
+        list: function (db, userid, callback) {
+            var where = {userId: userid};
             var d = new Date();
-            console.log('project.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
-            collection.find(where).sort({"id":ASC}).toArray(function (err, data) {
+            collection.find(where).sort({"_id":ASC}).toArray(function (err, data) {
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
             });

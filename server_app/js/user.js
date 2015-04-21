@@ -12,7 +12,6 @@ var dbCollection = "users";
                 var o_id = new ObjectID(uid.toString());
                 var where = {_id: o_id};
                 var d = new Date();
-                console.log('user.get ' + d.format(logDateFormat));
                 collection.findOne(where, function (err, data) {
                     if (err || null) console.log(err);
                     callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -23,8 +22,6 @@ var dbCollection = "users";
                 var collection = db.collection(dbCollection);
                 var where = {"email" : email};
                 var d = new Date();
-                console.log(where);
-                console.log('user.getByEmail ' + d.format(logDateFormat));
                 collection.find(where).count(function (err, cnt) {
                     if (err || null) console.log(err);
                     callback(cnt !== null ? JSON.stringify({"count" : cnt}) : JSON.stringify(err));
@@ -35,7 +32,6 @@ var dbCollection = "users";
         post: function (db, data, callback) {
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('user.post ' + d.format(logDateFormat));
             collection.insert(data, function(err, data){
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -47,7 +43,6 @@ var dbCollection = "users";
             var collection = db.collection(dbCollection);
             var where = {_id: o_id};
             var d = new Date();
-            console.log('user.delete ' + d.format(logDateFormat));
 
             collection.remove(where, function(err, data){
                 if (err || null) console.log(err);
@@ -64,7 +59,6 @@ var dbCollection = "users";
             var where = {_id: o_id};
             var upd = {'$set': data};
             var d = new Date();
-            console.log('user.put ' + d.format(logDateFormat));
             
             collection.update(where, upd, function (err, data){
                 if (err || null) console.log(err);
@@ -73,12 +67,30 @@ var dbCollection = "users";
         },
         list: function (db, callback) {
             var d = new Date();
-            console.log('user.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
             collection.find().sort({"id":ASC}).toArray(function (err, data) {
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
             });
+        },
+
+        login: function (db, data, callback) {
+            var collection = db.collection(dbCollection);
+            var where = {"email" : data.email.toLowerCase(), "password" : data.password};
+
+            var d = new Date();
+
+            collection.findOne(where, function (err, data) {
+                if (err || null) console.log(err);
+                if (data || null) {
+                    data.error = false;
+                    data.message = "";
+                } else {
+                    data = {"error" : true, "message" : "Bad User or Password"};
+                }
+                callback(JSON.stringify(data));
+            });
+
         }
     };
 

@@ -7,21 +7,16 @@ var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 var todo = require('gulp-todo');
 global.errorMessage = '';
-console.log("yo.. in gulpfile...");
+console.log("AGILE NODE APP - GULP");
  
 // Lint Task
 gulp.task('lint', function() {
     console.log('linting...');
-    return gulp.src('app.js')
+    return gulp.src('app.js, js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('lint', function() {
-    return gulp.src('js/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
 
 // get filenames relative to project root (where your gulpfile is) 
 gulp.task('todo', function() {
@@ -42,6 +37,7 @@ gulp.task('scripts', function() {
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('js/*.js', ['lint', 'todo']);
+    gulp.watch('app.js', ['lint', 'todo']);
 });
 
 // Default Task

@@ -1,6 +1,36 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngRoute']);
 
-app.controller('RegisterCtrl', function($scope, $http) {
+app.config(['$routeProvider', function($routeProvider) {
+	
+	
+	window.routes =	{
+			
+			"/": {
+			templateUrl: 'views/reg_form.html',
+			controller: '',
+			requireLogin: false
+		},
+			
+			"/complete": {
+			templateUrl: 'views/thankyou.html', 
+			controller: '', 
+			requireLogin: false
+		}
+	};
+
+    //this loads up our routes dynamically from the previous object 
+    for(var path in window.routes) {
+        $routeProvider.when(path, window.routes[path]);
+    }
+    $routeProvider.otherwise({redirectTo: '/'});
+	
+	
+	  
+  }]);
+
+
+
+app.controller('RegisterCtrl', function($scope, $http, $location) {
 	var _this = this;
 	var _baseURL = 'http://localhost:8080';
 	this.errEmail = false;
@@ -14,6 +44,7 @@ app.controller('RegisterCtrl', function($scope, $http) {
 		password : "",
 		email : "",
 		admin : false,
+		plan : 0,
 		fullName : function () {
 		    return this.firstName + " " + this.lastName;
 		}
@@ -47,6 +78,7 @@ app.controller('RegisterCtrl', function($scope, $http) {
 		  success(function(data, status, headers, config) {
 		    console.log("Made a user...");
 		    console.log(data);
+		    $location.path("/complete");
 		  }).
 		  error(function(data, status, headers, config) {
 		    console.log(data);

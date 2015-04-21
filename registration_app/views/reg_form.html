@@ -1,0 +1,81 @@
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		</div>
+	</div>
+		
+	<div class="row">
+
+		<div class="col-md-1 col-lg-1 ">
+		</div>
+
+		<div class="col-md-6 col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p><h2>Sign Up!</h2></p>
+					<form class="form-horizontal" role="form" name="form" ng-submit="reg.register()" novalidate>
+					<div class="well">
+					
+				
+												
+						<div class="form-group">
+							<label for="firstName" class="col-sm-2 control-label">First Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="reg.User.firstName" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastName" class="col-sm-2 control-label">Last Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="reg.User.lastName" required>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="reg.errEmail ? 'has-error' : ''">
+							<label for="email" class="col-sm-2 control-label">Email Address</label>
+							<div class="col-sm-10">
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email" ng-model="reg.User.email" ng-blur="reg.userEmailInUse(reg.User.email)" required>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="(form.password.$touched && !form.password.$valid) ? 'has-error' : ''">
+							<label for="password" class="col-sm-2 control-label">Password</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" ng-model="reg.User.password" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-2 col-sm-offset-2" >
+								<button type="submit" class="btn btn-primary" ng-disabled="!form.$valid || reg.errEmail">Submit</button>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel panel-body">
+								    	{{reg.errMsg}}
+								    </div>
+								</div>
+							</div>
+						</div>
+
+					</div>							
+					</form> 
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			<img src="http://placehold.it/300x450" class="center-block">
+		</div>
+
+		<div class="col-md-1 col-lg-1 ">
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		</div>
+	</div>
+</div>

@@ -19,18 +19,25 @@ var dbCollection = "accounts";
                 });
         },
 
+        getByOwnerId: function (db, id, callback) {
+                var collection = db.collection(dbCollection);
+                var where = {accountOwner: id};
+                var d = new Date();
+                console.log('account.getByOwnerId ' + d.format(logDateFormat));
+                collection.findOne(where, function (err, data) {
+                    if (err || null) console.log(err);
+                    callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
+                });
+        },
+
         post: function (db, data, callback) {
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('account.put ' + d.format(logDateFormat));
-            if (data._id !== null) {
-                collection.insert(data, function(err, data){
-                    if (err || null) {console.log(err); data = err;}
-                    callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
-                });
-            } else {
-                callback('{"err": "invalid input"}');
-            }
+            console.log('account.post ' + d.format(logDateFormat));
+            collection.insert(data, function(err, data){
+                if (err || null) {console.log(err); data = err;}
+                callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
+            });
         },
 
         delete: function (db, id, callback) {

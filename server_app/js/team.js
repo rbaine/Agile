@@ -12,7 +12,6 @@ var dbCollection = "team";
                 var o_id = new ObjectID(id.toString());
                 var where = {_id: o_id};
                 var d = new Date();
-                console.log('state.get ' + d.format(logDateFormat));
                 collection.findOne(where, function (err, data) {
                     if (err || null) console.log(err);
                     callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -22,7 +21,6 @@ var dbCollection = "team";
         post: function (db, data, callback) {
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('state.post ' + d.format(logDateFormat));
             collection.insert(data, function(err, data){
                 if (err || null) {console.log(err); data = err;}
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -34,7 +32,6 @@ var dbCollection = "team";
             var where = {_id: o_id};
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('state.delete ' + d.format(logDateFormat));
 
             collection.remove(where, function(err, data){
                 if (err || null) console.log(err);
@@ -51,7 +48,6 @@ var dbCollection = "team";
             var collection = db.collection(dbCollection);
             var upd = {'$set': data};
             var d = new Date();
-            console.log('state.put ' + d.format(logDateFormat));
             
             collection.update(where, upd, function (err, data){
                 if (err || null) console.log(err);
@@ -62,7 +58,6 @@ var dbCollection = "team";
         list: function (db, projectid, callback) {
             var where = {projectId: projectid};
             var d = new Date();
-            console.log('state.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
             
             collection.find(where).sort({"_id":ASC}).toArray(function (err, data) {

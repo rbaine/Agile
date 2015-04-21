@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Drag & Drop Grid Example</h2>
+        Card: <input type="text" id="val" ng-model="agileApp.curCard">
+        <select ng-model="agileApp.listType" ng-change="agileApp.updateView()">
+            <option ng-repeat="view in agileApp.listTypes">{{view}}</option>
+        </select>
+        <hr>
+            <div class="floatleft">
+                <div ui-sortable="agileApp.sortableOptions" class="story-container stories" ng-model="agileApp.itemsA">
+                    <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsA" ng-click="agileApp.select(item)" >
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                        {{item.id}}
+                        <!-- <h5>[{{$index}}]</h5> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="floatright">
+                <div ui-sortable="agileApp.sortableOptions" class="story-container iterations" ng-model="agileApp.itemsB">
+                    <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsB" ng-click="agileApp.select(item)">
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                        {{item.id}}
+                        <!-- <h5>[{{$index}}]</h5> -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clear">
+                <textarea rows="5" cols="70">{{agileApp.modelList}}</textarea>
+                <button type="button" class="btn btn-primary btn-lg" ng-click="agileApp.listStories()">List</button>
+            </div>  
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Object Properties</h4>
+      </div>
+      <div class="modal-body">
+        Can use bootstrap grid or form here to show object properties... perhaps ng-view...?
+        ...<br>
+        See docs here <a href="http://getbootstrap.com/javascript/#modals">Docs</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

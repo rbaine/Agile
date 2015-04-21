@@ -10,7 +10,6 @@ var dbCollection = "agileestimationtypes";
 
         list: function (db, callback) {
             var d = new Date();
-            console.log('agileestimationtypes.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
             
             collection.find().sort({"type":ASC}).toArray(function (err, data) {

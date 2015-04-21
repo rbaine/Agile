@@ -12,7 +12,6 @@ var dbCollection = "tasktypes";
                 var o_id = new ObjectID(id.toString());
                 var where = {_id: o_id};
                 var d = new Date();
-                console.log('tasktypes.get ' + d.format(logDateFormat));
                 collection.findOne(where, function (err, data) {
                     if (err || null) console.log(err);
                     callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -22,7 +21,6 @@ var dbCollection = "tasktypes";
         post: function (db, data, callback) {
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('tasktypes.post ' + d.format(logDateFormat));
             collection.insert(data, function(err, data){
                 if (err || null) {console.log(err); data = err;}
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -34,8 +32,6 @@ var dbCollection = "tasktypes";
             var where = {_id: o_id};
             var collection = db.collection(dbCollection);
             var d = new Date();
-            console.log('tasktypes.delete ' + d.format(logDateFormat));
-
             collection.remove(where, function(err, data){
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -51,8 +47,6 @@ var dbCollection = "tasktypes";
             var collection = db.collection(dbCollection);
             var upd = {'$set': data};
             var d = new Date();
-            console.log('tasktypes.put ' + d.format(logDateFormat));
-            
             collection.update(where, upd, function (err, data){
                 if (err || null) console.log(err);
                 callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
@@ -62,7 +56,6 @@ var dbCollection = "tasktypes";
         list: function (db, projectid, callback) {
             var d = new Date();
             var where = {projectId: projectid};
-            console.log('tasktypes.list ' + d.format(logDateFormat));
             var collection = db.collection(dbCollection);
             collection.find(where).sort({"_id":ASC}).toArray(function (err, data) {
                 if (err || null) console.log(err);

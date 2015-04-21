@@ -7,12 +7,11 @@ var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 var todo = require('gulp-todo');
 global.errorMessage = '';
-console.log("yo.. in gulpfile...");
  
 // Lint Task
 gulp.task('lint', function() {
     console.log('linting...');
-    return gulp.src('js/*.js')
+    return gulp.src('js/*.js,  !js/sidebar.js, !js/sortable.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -34,6 +33,7 @@ gulp.task('scripts', function() {
 
 // Copy files to node server directory
 gulp.task('copy', function(){
+  console.log('copying to prod/dev...');
   gulp.src('*.html').pipe(gulp.dest('../server_app/html'));
   gulp.src('css/*').pipe(gulp.dest('../server_app/html/css'));
   gulp.src('img/*').pipe(gulp.dest('../server_app/html/img'));
@@ -43,8 +43,8 @@ gulp.task('copy', function(){
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('*.html', ['copy']);
     gulp.watch('js/*.js', ['lint', 'todo', 'copy']);
+    gulp.watch('*.html', ['copy']);
     gulp.watch('css/*', ['copy']);
     gulp.watch('img/*', ['copy']);
     gulp.watch('views/*', ['copy']);

@@ -2,11 +2,11 @@
 var MongoDB = require('mongodb').MongoClient;
 
 var Express = require('express');
+var Morgan = require('morgan');
 var bodyParser = require('body-parser');
 var multer = require('multer'); 
 var Utils = require('./js/utils');
 
-var Account = require('./js/account');
 var State = require('./js/state');
 var AgileEstimation = require('./js/agileestimation');
 var AgileEstimationType = require('./js/agileestimationtype');
@@ -30,6 +30,7 @@ var dbName = '/agile';
 var dbConn = null;
 var _this = this;
 
+app.use(Morgan('dev'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(multer()); // for parsing multipart/form-data
@@ -167,6 +168,16 @@ app.post('/user', function (request, response){
 	});
 });
 
+
+app.post('/login', function (request, response){
+    var data = request.body;
+    User.login(_this.dbConn, data, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
+
+
 app.put('/user', function (request, response){
 	var data = request.body;
 	User.put(_this.dbConn, data, function (data){
@@ -183,8 +194,8 @@ app.get('/project/:id', function(request, response) {
 	});
 });
 
-app.get('/projectList/:accountid', function (request, response){
-	Project.list(_this.dbConn, request.params.accountid, function (data){
+app.get('/projectList/:userid', function (request, response){
+	Project.list(_this.dbConn, request.params.userid, function (data){
 		response.type('application/json');
 		response.send( data );
 	});
@@ -214,43 +225,6 @@ app.put('/project', function (request, response){
 });
 
 
-// ***** ACCOUNT ROUTES *****
-app.get('/account/:id', function(request, response) {
-	Account.get(_this.dbConn, request.params.id, function (data){
-		response.type('application/json');
-		response.send( data );
-	});
-});
-
-app.get('/accountList', function (request, response){
-	Account.list(_this.dbConn, function (data){
-		response.type('application/json');
-		response.send( data );
-	});
-});
-
-app.delete('/account/:id', function (request, response){
-	Account.delete(_this.dbConn, request.params.id, function (data){
-		response.type('application/json');
-		response.send( data );
-	});
-});
-
-app.post('/account', function (request, response){
-	var data = request.body;
-	Account.post(_this.dbConn, data, function (data){
-		response.type('application/json');
-		response.send( data );
-	});
-});
-
-app.put('/account', function (request, response){
-	var data = request.body;
-	Account.put(_this.dbConn, data, function (data){
-		response.type('application/json');
-		response.send( data );
-	});
-});
 
 // ***** STORYTYPE ROUTES *****
 app.get('/storyType/:id', function(request, response) {
@@ -587,15 +561,12 @@ app.get('/taskList/:storyid', function(request, response) {
 
 
 
-
 /* serves all the static files */
  app.get(/^(.+)$/, function(req, res){ 
      // console.log('dir : ' + __dirname);
      console.log('static file request : ' + req.params);
      res.sendFile( __dirname + req.params[0]); 
  });
-
-
 
 
 
