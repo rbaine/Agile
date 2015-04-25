@@ -136,6 +136,13 @@ app.factory('AuthService', function ($http) {
   return authService;
 });
 
+// ------------------------------------------------------------------------------------------------
+// -- AgileCtrl - Controller Code for main app
+// --
+// --
+// --
+// ------------------------------------------------------------------------------------------------
+
 app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flash) {
 	var _this = this;
 	this.ver = angular.version.full;
@@ -150,6 +157,8 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
         "enableTimeTracking" : false,
         "agileEstimationType" : 0
 	};
+
+	this.passwordForm = { "oldPassword" : "", "newPassword" : "", "confirmPassword" : ""};
 
 	this.User = {};
 	this.Account = {};
@@ -237,6 +246,22 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 		    console.log(data);
 		    _this.User = {};
 		  });
+	};
+
+	this.chgPassword = function (form) {
+		var data = {"_id" : AuthService.userCredentials._id, "password" : form.newPassword};
+		console.log("password info:");
+		console.log(data);
+
+		$http.put(app._baseURL + '/user', data).
+		success(function(data, status, headers, config) {
+			_this.passwordForm = {};
+			_this.popupMsg("", "your password has been updated.", 'success');
+		}).
+		error(function(data, status, headers, config) {
+			console.log("ERROR IN changePassword\n" + JSON.stringify(data));
+			_this.popupMsg('Error', "Uh oh! something bad happened and your password was not updated.", 'error');
+		});
 
 	};
 
