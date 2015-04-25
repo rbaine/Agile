@@ -1,5 +1,6 @@
-var app = angular.module('app', ['ui.sortable']);
-app.controller('MainCtrl', function($scope) {
+var app = angular.module('app', ['ui.sortable', 'ngAnimate']);
+
+app.controller('MainCtrl', function($scope, $animate) {
 	$scope.name = 'World';
 	$scope.ver = angular.version.full;
 	$scope.listType = "list";

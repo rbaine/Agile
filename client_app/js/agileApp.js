@@ -48,8 +48,14 @@ app.config(['$routeProvider', function($routeProvider) {
 			requireLogin: false
 		},
 			
-			"/settings": {
+			"/account-settings": {
 			templateUrl: 'views/account_settings.html', 
+			controller: '', 
+			requireLogin: true
+		},
+			
+			"/project-settings": {
+			templateUrl: 'views/project_settings.html', 
 			controller: '', 
 			requireLogin: true
 		}
@@ -68,7 +74,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
 
 
-
+//TODO: add local storage to persist login data accross browser refresh
 app.factory('AuthService', function ($http) {
 	_this = this;
 	var authService = {};
@@ -130,7 +136,7 @@ app.factory('AuthService', function ($http) {
   return authService;
 });
 
-app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
+app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flash) {
 	var _this = this;
 	this.ver = angular.version.full;
 	this.listTypes = ["List", "Grid"];
@@ -147,6 +153,7 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
 
 	this.User = {};
 	this.Account = {};
+	this.Project = {};
 	this.Projects = [];
 	
 	this.errMsg = "";
@@ -183,7 +190,7 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
 		//AuthService.login return a promise
 		AuthService.login(userInfo)
 			.then(function (user) {
-				console.log("user:" + JSON.stringify(user));
+				console.log("login user: " + JSON.stringify(user));
 				if (user.data.error === false) {
 					//todo: need to get user & account object here
 					getUser(AuthService.userCredentials._id);
@@ -220,9 +227,10 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
 	var getUser = function (id) {
 		$http.get( app._baseURL + "/user/" + id).
 		  success(function(data, status, headers, config) {
-		  	console.log(data);
+		  	console.log('getUser: ' + JSON.stringify(data));
 		  	_this.User = data;
 		  	_this.projectList(id);
+		  	_this.projectChange();
 		  	console.log(_this.User);
 		  }).
 		  error(function(data, status, headers, config) {
@@ -240,8 +248,10 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
 		  success(function(data, status, headers, config) {
 		  	//todo: refresh project list here
 		  	//todo: reset new project form
+		  	//todo: validate that project is not a duplicate name
 		  	_this.projectForm.name = "";
 		  	_this.projectList(AuthService.userCredentials._id);
+		  	_this.popupMsg("", "agile saved your data.", 'success');
 		  	console.log(data);
 		  }).
 		  error(function(data, status, headers, config) {
@@ -272,6 +282,44 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
 		    console.log(data);
 		  });
 	};
+
+	this.projectChange = function () {
+		var data = {"_id" : AuthService.userCredentials._id, "currentProject" : _this.User.currentProject};
+
+		$http.get(app._baseURL + '/project/' +  _this.User.currentProject).
+		success(function(data, status, headers, config) {
+			_this.Project = data;
+			console.log("Project:\n" + JSON.stringify(data));
+		}).
+		error(function(data, status, headers, config) {
+			console.log("ERROR IN projectChange\n" + JSON.stringify(data));
+		});
+
+		$http.put(app._baseURL + '/user', data).
+		success(function(data, status, headers, config) {
+		}).
+		error(function(data, status, headers, config) {
+			console.log("ERROR IN projectChange\n" + JSON.stringify(data));
+		});
+		
+	};
+
+	this.projectGeneralUpdate = function (form) {
+		var data = _this.Project;
+
+		$http.put(app._baseURL + '/project', data).
+		success(function(data, status, headers, config) {
+			form.$setPristine(true);
+			_this.popupMsg("", "agile saved your data.", 'success');
+			// form.$dirty = false;
+		}).
+		error(function(data, status, headers, config) {
+			console.log("ERROR IN projectChange\n" + JSON.stringify(data));
+			_this.popupMsg('Error', "Uh oh! something bad happened and your data was not saved.  :(", 'error');
+		});
+		
+	};
+
 
 
 
@@ -312,6 +360,23 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService) {
     	placeholder: (_this.listType === 'List') ? "placeholder-list" : "placeholder-grid",
     	connectWith: [".stories", ".iterations"]
   	};
+
+  	this.popupMsg = function(title, message, type) {
+      switch(type) {
+        case 'success':
+          toastr.success(message, title);
+          break;
+        case 'info':
+          toastr.info(message, title);
+          break;
+        case 'warning':
+          toastr.warning(message, title);
+          break;
+        case 'error':
+          toastr.error(message, title);
+          break;
+      }
+  };
 
 });
 

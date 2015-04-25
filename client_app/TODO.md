@@ -1,10 +1,12 @@
 ### TODOs
 | Filename | line # | TODO
 |:------|:------:|:------
-| agileApp.js | 188 | need to get user & account object here
-| agileApp.js | 215 | implement logout function in AuthService
-| agileApp.js | 241 | refresh project list here
-| agileApp.js | 242 | reset new project form
+| agileApp.js | 77 | add local storage to persist login data accross browser refresh
+| agileApp.js | 195 | need to get user & account object here
+| agileApp.js | 222 | implement logout function in AuthService
+| agileApp.js | 249 | refresh project list here
+| agileApp.js | 250 | reset new project form
+| agileApp.js | 251 | validate that project is not a duplicate name
 | ui-bootstrap-0.12.1.js | 2487 | support multiple triggers
 | ui-bootstrap-0.12.1.js | 2556 | add ability to start tooltip opened
 | ui-bootstrap-tpls-0.12.1.js | 2488 | support multiple triggers

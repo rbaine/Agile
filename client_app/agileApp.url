@@ -2,4 +2,5 @@
 Prop3=19,2
 [InternetShortcut]
 IDList=
-URL=http://localhost:8080/html/agileApp.html
+URL=http://localhost:8080/agileApp.html
+HotKey=0

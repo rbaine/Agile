@@ -30,11 +30,15 @@ var dbName = '/agile';
 var dbConn = null;
 var _this = this;
 
+app.use(Express.static('html'));
 app.use(Morgan('dev'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(multer()); // for parsing multipart/form-data
 
+
+//TODO: move route definitions out to route files
+//TODO: review status response  to ensure errors get return with proper status
 
 
 // ***** AGILE ESTIMATION ROUTES *****
@@ -562,11 +566,11 @@ app.get('/taskList/:storyid', function(request, response) {
 
 
 /* serves all the static files */
- app.get(/^(.+)$/, function(req, res){ 
-     // console.log('dir : ' + __dirname);
-     console.log('static file request : ' + req.params);
-     res.sendFile( __dirname + req.params[0]); 
- });
+ // app.get(/^(.+)$/, function(req, res){ 
+ //     // console.log('dir : ' + __dirname);
+ //     console.log('static file request : ' + req.params);
+ //     res.sendFile( __dirname + req.params[0]); 
+ // });
 
 
 

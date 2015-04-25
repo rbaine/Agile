@@ -45,6 +45,7 @@ app.controller('RegisterCtrl', function($scope, $http, $location) {
 		email : "",
 		admin : false,
 		plan : 0,
+		currentProject : "",
 		fullName : function () {
 		    return this.firstName + " " + this.lastName;
 		}

@@ -1,0 +1,147 @@
+
+
+  <tabset justified="false">
+    <tab heading="General">
+    	<form class="form-horizontal" role="form" name="generalForm" ng-submit="agileApp.projectGeneralUpdate(generalForm)" novalidate>
+				<div class="well">
+											
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Project Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="name" placeholder="Project Name" ng-model="agileApp.Project.name">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Iterations </label>
+						<div class="col-sm-10">
+							<input type="checkbox" ng-true-value="true" ng-false-value="false" id="enableIterations" ng-model="agileApp.Project.enableIterations"> Enable Iterations 
+							<a href="" data-toggle="tooltip" title="Some tooltip text!"><span class="fa fa-question fa-lg"></span></a>
+						</div>
+						
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Acceptance Criteria</label>
+						<div class="col-sm-10">
+							<input type="checkbox" id="enableAcceptanceCriteria" ng-true-value="true" ng-false-value="false" ng-model="agileApp.Project.enableAcceptanceCriteria"> Enable Acceptance Criteria  <a href=""><span class="fa fa-question fa-lg"></span></a>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Tests</label>
+						<div class="col-sm-10">
+							<input type="checkbox" id="enableTests" ng-true-value="true" ng-false-value="false" ng-model="agileApp.Project.enableTests"> Enable Tests <a href=""><span class="fa fa-question fa-lg"></span></a>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Agile Estimation</label>
+						<div class="col-sm-6">
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="agileEstimationType" id="agileEstimationType0" value="0" ng-model="agileApp.Project.agileEstimationType">
+							    Shirt Sizes
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="agileEstimationType" id="agileEstimationType1" value="1" ng-model="agileApp.Project.agileEstimationType">
+							    Coffee Cup Sizes
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="agileEstimationType" id="agileEstimationType2" value="2" ng-model="agileApp.Project.agileEstimationType">
+							    Fibonacci Numbers
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="agileEstimationType" id="agileEstimationType3" value="3" ng-model="agileApp.Project.agileEstimationType">
+							    Points
+							  </label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Time Tracking</label>
+						<div class="col-sm-10">
+							<input type="checkbox" id="enableTimeTracking" ng-true-value="true" ng-false-value="false" ng-model="agileApp.Project.enableTimeTracking"> Enable Time Tracking  <a href=""><span class="fa fa-question fa-lg"></span></a>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="timeUnit" id="timeUnit0" value="h" ng-model="agileApp.Project.timeUnit">
+							    Hours
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="timeUnit" id="timeUnit1" value="d" ng-model="agileApp.Project.timeUnit">
+							    Days
+							  </label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label"></label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" id="hoursPerDay" placeholder="" ng-model="agileApp.Project.hoursPerDay"> 
+						</div>
+						<div class="col-sm-8">
+							<small>Hours Per Day</small>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-6">
+						<button type="submit" class="btn" ng-class="(generalForm.$dirty) ? 'btn-warning' : (generalForm.$submitted) ? 'btn-primary' : 'btn-success'">Save</button>
+						</div>
+					</div>
+				</div>
+			</form> 
+    </tab>
+    
+    <tab heading="Members">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>
+    </tab>
+    
+    <tab heading="Stories">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>	
+
+    </tab>
+    
+    
+    <tab heading="Tasks">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>
+    </tab>
+
+    <tab heading="Reports">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>
+    </tab>
+
+    <tab heading="Files">
+    	<div class="well">
+    		<h2>Sorry... still working on this screen.</h2>
+    	</div>
+    </tab>
+
+
+  </tabset>
+
+

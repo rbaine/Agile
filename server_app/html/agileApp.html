@@ -29,6 +29,8 @@
     <script type="text/javascript" src="js/sidebar.js"></script> 
     <script type="text/javascript" src="js/agileApp.js"></script>
     <script type="text/javascript" src="js/sortable.js"></script>
+    <script type="text/javascript" src="js/toastr.js"></script>
+    <script type="text/javascript" src="js/toastr-flashService.js"></script>
     <!-- // <script src="js/angular-local-storage.js"></script> -->
 
 
@@ -41,6 +43,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="css/d-and-d.css"> -->
     <link rel="stylesheet" href="css/dd-grid.css">
+    <link rel="stylesheet" href="css/toastr-style.css">
 
 
 
@@ -77,26 +80,25 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="agileApp.html"><img alt="Symbience Clear Path Agile" src="img/logo.png"></a>
-        <a class="navbar-brand" href="#">Symbience ClearPath Agile</a>
+        <a class="navbar-brand" href="#">Clear Path Agile</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
           <li><p class="navbar-text"><strong>Project:</strong></p>
-			<li class="dropdown">
-				<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">Project Name will go here<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="project in agileApp.Projects"><a href="#">{{project.name}}</a></li>
-              <!--   <li><a href="#">Project 2</a></li>
-                <li><a href="#">Project 3</a></li>
-                <li><a href="#">Project 4</a></li> -->
-              </ul>
+          <li>
+            <p class="navbar-text">
+              <select class="dropdown" role="menu" ng-options="project._id as project.name for project in agileApp.Projects" ng-model="agileApp.User.currentProject" ng-change="agileApp.projectChange()">
+              </select>
+            </p>
+          </li>
 
-      </li>
-      
-
-          	<li><p class="navbar-text">Signed in as <a href="#settings" class="navbar-link" title="User Settings">{{agileApp.userName()}}  <i class="fa fa-cog"></i></a></p></li>
-          	<li><a href="#login" title="Logout" ng-click="agileApp.logout()"><span class="fa fa-sign-out fa-lg"></span></a></li>
-          	<li><a href="#" title="Help"><span class="fa fa-question-circle fa-lg"></span></a></li>
+        	<li><p class="navbar-text">User:
+                <a href="#account-settings" class="navbar-link" title="User Settings">{{agileApp.userName()}}</a>&nbsp;&nbsp;&nbsp;
+                <a href="#account-settings" class="navbar-link" title="User Settings"><i class="fa fa-cog fa-lg"></i></a>
+              </p>
+          </li>
+        	<li><a href="#login" title="Logout" ng-click="agileApp.logout()"><span class="fa fa-sign-out fa-lg"></span></a></li>
+        	<li><a href="#" title="Help"><span class="fa fa-question-circle fa-lg"></span></a></li>
             
             
           </ul>
@@ -116,7 +118,7 @@
 			<li><a href="#notdone" data-toggle="sidebar" data-target=".sidebar"><i class="fa fa-sliders"></i> KANBAN</a></li>
 			<li><a href="#notdone" data-toggle="sidebar" data-target=".sidebar"><i class="fa fa-eye"></i> TESTS</a></li>
 			<li><a href="#notdone" data-toggle="sidebar" data-target=".sidebar"><i class="fa fa-file-code-o"></i> REPORTS</a></li>
-			<li><a href="#settings" data-toggle="sidebar" data-target=".sidebar"><i class="fa fa-cog"></i> SETTINGS</a></li>
+			<li><a href="#project-settings" data-toggle="sidebar" data-target=".sidebar"><i class="fa fa-cog"></i> SETTINGS</a></li>
 		</ul>
 	</div>
 

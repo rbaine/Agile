@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Avatar</label>
 						<div class="col-sm-10">
-							<img src="http://placehold.it/150x150">
+							<img src="http://placehold.it/75x75">
 						</div>
 					</div>
 
@@ -83,8 +83,8 @@
 			<br>
 			<br>
 			<!-- Current Project List -->
-			<legend>Current Projects</legend>
-			<p>You are a member or owner of the following projects.  You can leave any project you are a member of, or you may delete any project that you are an owner of.</p>
+			<legend>My Projects:</legend>
+			<p>You are an owner of the following projects.  You may delete any project that you are an owner of, but be aware that deleting a project will also delete all of that projects stories and related data.</p>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -95,16 +95,29 @@
 				<tbody>
 					<tr ng-repeat="project in agileApp.Projects">
 						<td>{{project.name}}</td>
-						<td><button type="button" class="btn btn-danger" ng-click="agileApp.projectDelete(project._id)">Delete</button></td>
+						<td>
+							<button type="button" class="btn btn-danger" ng-click="agileApp.projectDelete(project._id)">Delete</button>
+						</td>
 					</tr>
-<!-- 					<tr>
-						<td>Sample project name 2</td>
-						<td><button type="button" class="btn btn-danger">Delete</button></td>
-					</tr>
+				</tbody>
+			</table>
+
+			<legend>Projects you are a Team member of:</legend>
+			<p>You are a member of the following projects.  You may leave any project that you are a member of.</p>
+			<table class="table table-hover">
+				<thead>
 					<tr>
-						<td>Sample project name 3</td>
-						<td><button type="button" class="btn btn-primary">Leave</button></td>
-					</tr> -->
+						<th>Project Name</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="project in agileApp.Projects">
+						<td>{{project.name}}</td>
+						<td>
+							<button type="button" class="btn btn-warning" ng-click="agileApp.projectDelete(project._id)">Leave</button>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

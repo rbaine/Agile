@@ -36,10 +36,13 @@ gulp.task('copy', function(){
   console.log('copying to prod/dev...');
   gulp.src('*.html').pipe(gulp.dest('../server_app/html'));
   gulp.src('css/*').pipe(gulp.dest('../server_app/html/css'));
-  gulp.src('img/*').pipe(gulp.dest('../server_app/html/img'));
+  gulp.src('img/*, !img/Thumbs.db').pipe(gulp.dest('../server_app/html/img'));
   gulp.src('js/*').pipe(gulp.dest('../server_app/html/js'));
   gulp.src('views/*').pipe(gulp.dest('../server_app/html/views'));
 });
+
+
+
 
 // Watch Files For Changes
 gulp.task('watch', function() {
