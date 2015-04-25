@@ -143,7 +143,7 @@ app.factory('AuthService', function ($http) {
 // --
 // ------------------------------------------------------------------------------------------------
 
-app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flash) {
+app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flash, $modal) {
 	var _this = this;
 	this.ver = angular.version.full;
 	this.listTypes = ["List", "Grid"];
@@ -158,7 +158,7 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
         "agileEstimationType" : 0
 	};
 
-	this.passwordForm = { "oldPassword" : "", "newPassword" : "", "confirmPassword" : ""};
+	this.passwordForm = { "oldPassword" : "", "newPassword" : "123", "confirmPassword" : "456"};
 
 	this.User = {};
 	this.Account = {};
@@ -188,6 +188,21 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 	this.modelList = "";
 
 
+
+//------------------------------------
+// MODAL TEST STUFF
+	this.open = function (size) {
+	    var modalInstance = $modal.open({
+			templateUrl: 'chgPassword.html',
+	      	controller: 'ModalInstanceCtrl as MIC',
+	      	size: size,
+	      	resolve : {}
+
+		});
+    };
+
+// END MODAL TEST STUFF
+//------------------------------------
 	
 
 
@@ -405,3 +420,34 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 
 });
 
+app.controller('ModalInstanceCtrl', function ($modalInstance, $http, AuthService) {
+var _this = this;
+this.passwordForm = { "oldPassword" : "", "newPassword" : "123", "confirmPassword" : "456"};
+
+  this.ok = function () {
+  	console.log("dialog close function...");
+    $modalInstance.close();
+  };
+
+  this.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+
+	this.chgPassword = function () {
+		var data = {"_id" : AuthService.userCredentials._id, "password" : _this.passwordForm.newPassword};
+		console.log("password info:");
+		console.log(data);
+
+		$http.put(app._baseURL + '/user', data).
+		success(function(data, status, headers, config) {
+			_this.passwordForm = {};
+			$modalInstance.close();
+		}).
+		error(function(data, status, headers, config) {
+			console.log("ERROR IN changePassword\n" + JSON.stringify(data));
+		});
+
+	};
+
+
+});
