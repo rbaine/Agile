@@ -1,37 +1,39 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h2>Drag & Drop Grid Example</h2>
-        Card: <input type="text" id="val" ng-model="agileApp.curCard">
-        <select ng-model="agileApp.listType" ng-change="agileApp.updateView()">
-            <option ng-repeat="view in agileApp.listTypes">{{view}}</option>
-        </select>
-        <hr>
-            <div class="floatleft">
-                <div ui-sortable="agileApp.sortableOptions" class="story-container stories" ng-model="agileApp.itemsA">
-                    <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsA" ng-click="agileApp.select(item)" >
-                        <span class="glyphicon glyphicon-paperclip"></span>
-                        {{item.id}}
-                        <!-- <h5>[{{$index}}]</h5> -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="floatright">
-                <div ui-sortable="agileApp.sortableOptions" class="story-container iterations" ng-model="agileApp.itemsB">
-                    <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsB" ng-click="agileApp.select(item)">
-                        <span class="glyphicon glyphicon-paperclip"></span>
-                        {{item.id}}
-                        <!-- <h5>[{{$index}}]</h5> -->
-                    </div>
-                </div>
-            </div>
-            
-            <div class="clear">
-                <textarea rows="5" cols="70">{{agileApp.modelList}}</textarea>
-                <button type="button" class="btn btn-primary btn-lg" ng-click="agileApp.listStories()">List</button>
-            </div>  
+<div>
+    <div class="row">
+        <div class="col-sm-12"><h4>Backlog</h4></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><button type="button" class="btn btn-primary btn-xs" ng-click="agileApp.newStory()">New Story</button></div>
+        <div class="col-sm-2">Story: <em class="text-primary">{{agileApp.curCard}}</em></div>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-2"><div class="pull-right">View: <select ng-model="agileApp.listType" ng-change="agileApp.updateView()"><option ng-repeat="view in agileApp.listTypes">{{view}}</option></select></div></div>
     </div>
 </div>
+
+<div class="floatleft">
+    <div ui-sortable="agileApp.sortableOptions" class="story-container stories" ng-model="agileApp.itemsA">
+        <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsA" ng-click="agileApp.select(item)" >
+            <span class="glyphicon glyphicon-paperclip"></span>
+            {{item.id}}
+            <!-- <h5>[{{$index}}]</h5> -->
+        </div>
+    </div>
+</div>
+
+<div class="floatright">
+    <div ui-sortable="agileApp.sortableOptions" class="story-container iterations" ng-model="agileApp.itemsB">
+        <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsB" ng-click="agileApp.select(item)">
+            <span class="glyphicon glyphicon-paperclip"></span>
+            {{item.id}}
+            <!-- <h5>[{{$index}}]</h5> -->
+        </div>
+    </div>
+</div>
+
+<div class="clear">
+    <textarea rows="5" cols="70">{{agileApp.modelList}}</textarea><br>
+    <button type="button" class="btn btn-primary btn-lg" ng-click="agileApp.listStories()">List</button>
+</div>  
 
 
 <!-- Modal -->
@@ -53,3 +55,83 @@
     </div>
   </div>
 </div>
+
+
+
+<script type="text/ng-template" id="storyProperties.html">
+    <!-- Story Properties Modal -->
+
+        <form class="form-horizontal" role="form" name="form">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="story.cancel()"><span>&times;</span></button>
+                <h4 class="modal-title">New Story</h4>
+            </div>
+            
+            <div class="modal-body">
+                 <div class="form-group">
+            
+                    <div class="form-group" ng-class="">
+                        <label for="title" class="col-sm-3 control-label">Title</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="title" placeholder="Story Title" ng-model="story.title">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="">
+                        <label for="type" class="col-sm-3 control-label">Type</label>
+                        <div class="col-sm-7">
+                           <select id="type" class="dropdown" ng-options="storytype._id as storytype.name for storytype in story.StoryTypes" ng-model="story.type">
+                           </select>
+
+
+
+                            <input type="text" class="form-control" id="confirmpassword" placeholder="Story Type"  ng-model="story.type">
+                            {{story.project.storyTypes}}
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="">
+                        <label for="owner" class="col-sm-3 control-label">Owner</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="owner" placeholder="Owner"  ng-model="story.owner">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="">
+                        <label for="agileestimate" class="col-sm-3 control-label">Agile Estimation</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="agileestimate" placeholder="Agile Estimate"  ng-model="story.agileestimate">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="">
+                        <label for="originaltimeestimate" class="col-sm-3 control-label">Time Estimate</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="originaltimeestimate" placeholder="Original Time Estimate"  ng-model="story.originaltimeestimate">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="">
+                        <label for="tags" class="col-sm-3 control-label">Tags (comma separated)</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="tags" placeholder=""  ng-model="story.tags">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="">
+                        <label for="description" class="col-sm-3 control-label">Description</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="description" placeholder=""  ng-model="story.description">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>  <!-- end modal-body -->
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-class="" ng-click="story.cancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-class="" ng-click="story.save()">Save</button>
+            </div>
+        </form>
+</script>

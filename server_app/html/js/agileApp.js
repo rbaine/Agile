@@ -158,12 +158,11 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
         "agileEstimationType" : 0
 	};
 
-	this.passwordForm = { "oldPassword" : "", "newPassword" : "123", "confirmPassword" : "456"};
-
 	this.User = {};
 	this.Account = {};
 	this.Project = {};
 	this.Projects = [];
+
 	
 	this.errMsg = "";
 
@@ -189,22 +188,6 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 
 
 
-//------------------------------------
-// MODAL TEST STUFF
-	this.open = function (size) {
-	    var modalInstance = $modal.open({
-			templateUrl: 'chgPassword.html',
-	      	controller: 'ModalInstanceCtrl as MIC',
-	      	size: size,
-	      	resolve : {}
-
-		});
-    };
-
-// END MODAL TEST STUFF
-//------------------------------------
-	
-
 
 	//----------------------------------------------------------------
 	// User Authentication Functions
@@ -218,11 +201,9 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 				if (user.data.error === false) {
 					//todo: need to get user & account object here
 					getUser(AuthService.userCredentials._id);
-					_this.errMsg = "";
-					$location.path("/notdone");
+					$location.path("/backlog");
 				} else {
-					//alert("bad");
-					_this.errMsg = "bad";
+					toastr.error("Uh oh! looks like you entered your password wrong.", "");
 				};
 			}, function () {
 				console.log("assume bad?");
@@ -263,22 +244,14 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 		  });
 	};
 
-	this.chgPassword = function (form) {
-		var data = {"_id" : AuthService.userCredentials._id, "password" : form.newPassword};
-		console.log("password info:");
-		console.log(data);
-
-		$http.put(app._baseURL + '/user', data).
-		success(function(data, status, headers, config) {
-			_this.passwordForm = {};
-			_this.popupMsg("", "your password has been updated.", 'success');
-		}).
-		error(function(data, status, headers, config) {
-			console.log("ERROR IN changePassword\n" + JSON.stringify(data));
-			_this.popupMsg('Error', "Uh oh! something bad happened and your password was not updated.", 'error');
+	this.passwordChangeOpen = function () {
+	    var modalInstance = $modal.open({
+			templateUrl: 'chgPassword.html',
+	      	controller: 'PasswordChangeCtrl as pwdChg',
+	      	size: '',
+	      	resolve : {}
 		});
-
-	};
+    };
 
 
 
@@ -335,6 +308,9 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 			console.log("ERROR IN projectChange\n" + JSON.stringify(data));
 		});
 
+		
+
+
 		$http.put(app._baseURL + '/user', data).
 		success(function(data, status, headers, config) {
 		}).
@@ -344,6 +320,7 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 		
 	};
 
+	//TODO: neet to make sure agileEstimationType is numeric from form
 	this.projectGeneralUpdate = function (form) {
 		var data = _this.Project;
 
@@ -351,7 +328,6 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 		success(function(data, status, headers, config) {
 			form.$setPristine(true);
 			_this.popupMsg("", "agile saved your data.", 'success');
-			// form.$dirty = false;
 		}).
 		error(function(data, status, headers, config) {
 			console.log("ERROR IN projectChange\n" + JSON.stringify(data));
@@ -362,6 +338,25 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 
 
 
+	//----------------------------------------------------------------
+	// Story stuff
+	//
+	this.newStory = function () {
+	    var modalInstance = $modal.open({
+			templateUrl: 'storyProperties.html',
+	      	controller: 'StoryCtrl as story',
+	      	size: '',
+	      	resolve : {
+	      		project : function () {
+	      			return _this.Project;
+	      		}
+
+	      	}
+		});
+    };
+
+	// END - Story stuff
+    //----------------------------------------------------------------
 
 
 	this.updateView = function() {
@@ -420,34 +415,59 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 
 });
 
-app.controller('ModalInstanceCtrl', function ($modalInstance, $http, AuthService) {
+app.controller('PasswordChangeCtrl', function ($modalInstance, $http, AuthService, flash) {
 var _this = this;
-this.passwordForm = { "oldPassword" : "", "newPassword" : "123", "confirmPassword" : "456"};
+this.passwordForm = { "newPassword" : "", "confirmPassword" : "" };
 
-  this.ok = function () {
-  	console.log("dialog close function...");
-    $modalInstance.close();
-  };
-
-  this.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+	this.cancel = function () {
+	$modalInstance.dismiss('cancel');
+	};
 
 	this.chgPassword = function () {
 		var data = {"_id" : AuthService.userCredentials._id, "password" : _this.passwordForm.newPassword};
-		console.log("password info:");
-		console.log(data);
-
 		$http.put(app._baseURL + '/user', data).
 		success(function(data, status, headers, config) {
-			_this.passwordForm = {};
-			$modalInstance.close();
+			toastr.success('your password has been updated.', '');
+			$modalInstance.close(_this.passwordForm);
 		}).
 		error(function(data, status, headers, config) {
-			console.log("ERROR IN changePassword\n" + JSON.stringify(data));
+			toastr.error("Uh oh! something bad happened and your password was not updated.", "");
 		});
+	};
+});
 
+
+app.controller('StoryCtrl', function ($modalInstance, $http, AuthService, flash, project) {
+var _this = this;
+
+console.log( project );
+
+
+
+this.title = project.name;
+this.type - "type";
+this.owner = "rod";
+this.agileestimate = 0;
+this.tags = "tags, tags, tags";
+this.description = "description";
+this.storyTypes = project.storyTypes;
+console.log(project.storyTypes);
+
+	// $http.get(app._baseURL + '/storyTypeList/' +  project._id).
+	// 	success(function(data, status, headers, config) {
+	// 		_this.StoryTypes = data;
+	// 		console.log(data);
+	// 	}).
+	// 	error(function(data, status, headers, config) {
+	// 	});
+
+
+	this.cancel = function () {
+	$modalInstance.dismiss('cancel');
 	};
 
+	this.save = function () {
+		$modalInstance.close();
+	};
 
 });

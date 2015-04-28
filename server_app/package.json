@@ -16,6 +16,7 @@
     "gulp-watch": "*",
     "gulp-jshint": "*",
     "gulp-todo": "*",
-    "morgan": "*"
+    "morgan": "*",
+    "async" : "*"
   }
 }
