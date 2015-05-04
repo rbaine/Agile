@@ -8,18 +8,46 @@ var DESC = -1;
 var dbCollection = "projects";
 
     return {
+       //TODO: need to add team member list to project
         get: function (db, id, callback) {
-            //TODO: need to add storytypes and agile estimation to this get function
-                var collection = db.collection(dbCollection);
-                var o_id = new ObjectID(id.toString());
-                var where = {_id: o_id};
-                var d = new Date();
-                collection.findOne(where, function (err, data) {
-                    if (err || null) console.log(err);
-                    callback(data !== null ? JSON.stringify(data) : JSON.stringify(err));
-                });
-        },
+            var _this = this;
+            var o_id = new ObjectID(id.toString());
+            var where = {_id: o_id};
 
+            var colProjects = db.collection("projects");
+            var colStoryTypes = db.collection("storytypes");
+            var colAgileEstimation = db.collection("agileestimation");
+            var project = {};
+            
+            colProjects.findOne(where, function (err, data) {
+                // using async.js to serialize db calls to avoid nested callbacks
+                if (data !== null) {
+                    project = data;
+                    async.series([
+                        function (call) {
+                            colStoryTypes.find({projectId : project._id.toString()}).toArray(function (err, data) {
+                                project.storyTypes = data;
+                                call(null, '');
+                            });
+                        },
+                        function (call) {
+                            colAgileEstimation.find({agileEstimationType : project.agileEstimationType}).toArray(function (err, data) {
+                                project.agileEstimation = data;
+                                call(null, '');
+                            });
+                        }
+                        ], function (err, result) {
+                            callback(JSON.stringify(project));
+                        });
+
+                } else {
+                    projects = [];
+                    callback(JSON.stringify(err));
+                }
+            });
+        
+
+        },
         post: function (db, data, callback) {
             var collection = db.collection(dbCollection);
             var d = new Date();

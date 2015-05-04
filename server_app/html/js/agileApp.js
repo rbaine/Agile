@@ -162,26 +162,8 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 	this.Account = {};
 	this.Project = {};
 	this.Projects = [];
-
-	
-	this.errMsg = "";
-
-	this.itemsA = [
-		{"id": "100", "sel": false}, 
-		{"id": "101", "sel": false}, 
-		{"id": "102", "sel": false}, 
-		{"id": "103", "sel": false},
-		{"id": "104", "sel": false},
-		{"id": "105", "sel": false},
-		{"id": "106", "sel": false}
-	];
-
-	this.itemsB = [
-		{"id": "200", "sel": false}, 
-		{"id": "201", "sel": false}, 
-		{"id": "202", "sel": false}, 
-		{"id": "203", "sel": false}
-	];
+	this.Stories = [];
+	this.StoriesInIteration = [];
 
 	this.curCard = "n/a";
 	this.modelList = "";
@@ -204,10 +186,10 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 					$location.path("/backlog");
 				} else {
 					toastr.error("Uh oh! looks like you entered your password wrong.", "");
-				};
+				}
 			}, function () {
 				console.log("assume bad?");
-				_this.errMsg = "bad";
+				toastr.error("Uh oh! looks like you entered your password wrong.", "");
 			});
 
 	};
@@ -232,6 +214,7 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 	var getUser = function (id) {
 		$http.get( app._baseURL + "/user/" + id).
 		  success(function(data, status, headers, config) {
+
 		  	console.log('getUser: ' + JSON.stringify(data));
 		  	_this.User = data;
 		  	_this.projectList(id);
@@ -299,16 +282,25 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 	this.projectChange = function () {
 		var data = {"_id" : AuthService.userCredentials._id, "currentProject" : _this.User.currentProject};
 
+		// get new project document
 		$http.get(app._baseURL + '/project/' +  _this.User.currentProject).
 		success(function(data, status, headers, config) {
 			_this.Project = data;
-			console.log("Project:\n" + JSON.stringify(data));
+			console.log("projectChange:\n" + JSON.stringify(data));
+
+			// get new story list for current project
+			$http.get(app._baseURL + '/storyList/' + _this.User.currentProject).
+			success(function(data, status, headers, config) {
+				_this.Stories = data;
+				_this.StoriesInIteration = [];
+			}).
+			error(function(data, status, headers, config){
+				console.log("ERROR IN projectChange-get stories\n" + JSON.stringify(data));
+			});
 		}).
 		error(function(data, status, headers, config) {
 			console.log("ERROR IN projectChange\n" + JSON.stringify(data));
 		});
-
-		
 
 
 		$http.put(app._baseURL + '/user', data).
@@ -320,7 +312,6 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 		
 	};
 
-	//TODO: neet to make sure agileEstimationType is numeric from form
 	this.projectGeneralUpdate = function (form) {
 		var data = _this.Project;
 
@@ -341,10 +332,11 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 	//----------------------------------------------------------------
 	// Story stuff
 	//
+	
 	this.newStory = function () {
 	    var modalInstance = $modal.open({
 			templateUrl: 'storyProperties.html',
-	      	controller: 'StoryCtrl as story',
+	      	controller: 'StoryCtrl as StoryDlg',
 	      	size: '',
 	      	resolve : {
 	      		project : function () {
@@ -353,7 +345,43 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 
 	      	}
 		});
+
+		modalInstance.result.then(function (story) {
+      		console.log(story);
+      		var sn;
+
+      		// get next story number
+      		$http.get(app._baseURL + '/storyNumber/' + story.projectId).
+			success(function(data, status, headers, config) {
+				sn = data.storyNumber;
+
+				story.storyNumber = sn;
+
+				// save story
+				$http.post(app._baseURL + '/story', story).
+				success(function(data, status, headers, config) {
+					console.log("sn: " + sn);
+					_this.Stories.push({storyNumber: sn, title: story.title, selected : true});
+					toastr.success('your story has been added.', '');
+
+				}).
+				error(function(data, status, headers, config) {
+					toastr.error("Uh oh! something bad happened and your story was not added.", "");
+				});
+
+			}).
+			error(function(data, status, headers, config) {
+				toastr.error("Uh oh! something bad happened and we could not get a story number.", "");
+				sn = -1;
+			});
+      		
+    	}, function () {
+      		console.log('Modal dismissed at: ' + new Date());
+    	});
+
     };
+
+    
 
 	// END - Story stuff
     //----------------------------------------------------------------
@@ -367,26 +395,26 @@ app.controller('AgileCtrl', function($scope, $location, $http, AuthService, flas
 
 	this.listStories = function () {
 		_this.modelList = 'Left List:\n';
-		for (var iA = 0; iA < _this.itemsA.length; iA++) {
-			console.log(_this.itemsA[iA]);
-			_this.modelList += _this.itemsA[iA].id + ', ';
+		for (var iA = 0; iA < _this.Stories.length; iA++) {
+			console.log(_this.Stories[iA]);
+			_this.modelList += _this.Stories[iA].storyNumber + ', ';
 		}
 		_this.modelList += '\n\nRight List:\n';
-		for (var iB = 0; iB < _this.itemsB.length; iB++) {
-			console.log(_this.itemsB[iB]);
-			_this.modelList += _this.itemsB[iB].id + ', ';
+		for (var iB = 0; iB < _this.StoriesInIteration.length; iB++) {
+			console.log(_this.StoriesInIteration[iB]);
+			_this.modelList += _this.StoriesInIteration[iB].storyNumber + ', ';
 		}
 	};
 
-	this.select = function(item){
-		for (var iA = 0; iA < _this.itemsA.length; iA++) {
-			_this.itemsA[iA].sel = false;
+	this.select = function(story){
+		for (var iA = 0; iA < _this.Stories.length; iA++) {
+			_this.Stories[iA].sel = false;
 		}
-		for (var iB = 0; iB < _this.itemsB.length; iB++) {
-			_this.itemsB[iB].sel = false;
+		for (var iB = 0; iB < _this.StoriesInIteration.length; iB++) {
+			_this.StoriesInIteration[iB].sel = false;
 		}
-		_this.curCard = item.id;
-		item.sel = true;
+		_this.curCard = story.storyNumber + '-' + story.title;
+		story.sel = true;
 	};
 
 	 this.sortableOptions = {
@@ -440,34 +468,34 @@ this.passwordForm = { "newPassword" : "", "confirmPassword" : "" };
 app.controller('StoryCtrl', function ($modalInstance, $http, AuthService, flash, project) {
 var _this = this;
 
-console.log( project );
-
-
-
-this.title = project.name;
-this.type - "type";
-this.owner = "rod";
-this.agileestimate = 0;
-this.tags = "tags, tags, tags";
-this.description = "description";
 this.storyTypes = project.storyTypes;
-console.log(project.storyTypes);
+this.agileEstimation = project.agileEstimation;
+this.story = {};
 
-	// $http.get(app._baseURL + '/storyTypeList/' +  project._id).
-	// 	success(function(data, status, headers, config) {
-	// 		_this.StoryTypes = data;
-	// 		console.log(data);
-	// 	}).
-	// 	error(function(data, status, headers, config) {
-	// 	});
+    _this.story.projectId = project._id;
+    _this.story.storyNumber = 0;
+    _this.story.title = "";
+    _this.story.description = "";
+    _this.story.tags = "";
+    _this.story.type = "";
+    _this.story.owner = "";
+    _this.story.state = undefined;
+    _this.story.iteration = "";
+    _this.story.blocked = false;
+    _this.story.acceptanceCriteria = "";
+    _this.story.agileEstimate = undefined;
+    _this.story.originalTimeEstimate = undefined;
+    _this.story.timeSpent = 0;
+    _this.story.archived = false;
 
 
 	this.cancel = function () {
-	$modalInstance.dismiss('cancel');
+		$modalInstance.dismiss('cancel');
 	};
 
 	this.save = function () {
-		$modalInstance.close();
+		// return story object for saving etc...
+		$modalInstance.close(_this.story);
 	};
 
 });

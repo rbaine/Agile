@@ -11,21 +11,23 @@
 </div>
 
 <div class="floatleft">
-    <div ui-sortable="agileApp.sortableOptions" class="story-container stories" ng-model="agileApp.itemsA">
-        <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsA" ng-click="agileApp.select(item)" >
-            <span class="glyphicon glyphicon-paperclip"></span>
-            {{item.id}}
-            <!-- <h5>[{{$index}}]</h5> -->
+    <div ui-sortable="agileApp.sortableOptions" class="story-container stories" ng-model="agileApp.Stories">
+        <!-- <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsA" ng-click="agileApp.select(item)" >
+            #{{item.storyNumber}}<br>
+            {{item.title}}
+        </div> -->
+        <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (story.sel ? 'active' : '')" ng-repeat="story in agileApp.Stories" ng-click="agileApp.select(story)" >
+            #{{story.storyNumber}}<br>
+            {{story.title}}
         </div>
     </div>
 </div>
 
 <div class="floatright">
-    <div ui-sortable="agileApp.sortableOptions" class="story-container iterations" ng-model="agileApp.itemsB">
-        <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (item.sel ? 'active' : '')" ng-repeat="item in agileApp.itemsB" ng-click="agileApp.select(item)">
-            <span class="glyphicon glyphicon-paperclip"></span>
-            {{item.id}}
-            <!-- <h5>[{{$index}}]</h5> -->
+    <div ui-sortable="agileApp.sortableOptions" class="story-container iterations" ng-model="agileApp.StoriesInIteration">
+        <div ng-class="((agileApp.listType==='List') ? 'story-list' : 'story-grid') + ' ' + (story.sel ? 'active' : '')" ng-repeat="story in agileApp.StoriesInIteration" ng-click="agileApp.select(story)">
+            #{{story.storyNumber}}<br>
+            {{story.title}}
         </div>
     </div>
 </div>
@@ -61,9 +63,9 @@
 <script type="text/ng-template" id="storyProperties.html">
     <!-- Story Properties Modal -->
 
-        <form class="form-horizontal" role="form" name="form">
+        <form class="form-horizontal" role="form" name="newStoryForm" novalidate>
             <div class="modal-header">
-                <button type="button" class="close" ng-click="story.cancel()"><span>&times;</span></button>
+                <button type="button" class="close" ng-click="StoryDlg.cancel()"><span>&times;</span></button>
                 <h4 class="modal-title">New Story</h4>
             </div>
             
@@ -73,55 +75,51 @@
                     <div class="form-group" ng-class="">
                         <label for="title" class="col-sm-3 control-label">Title</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="title" placeholder="Story Title" ng-model="story.title">
+                            <input type="text" class="form-control" id="title" placeholder="Story Title" ng-model="StoryDlg.story.title">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="">
                         <label for="type" class="col-sm-3 control-label">Type</label>
                         <div class="col-sm-7">
-                           <select id="type" class="dropdown" ng-options="storytype._id as storytype.name for storytype in story.StoryTypes" ng-model="story.type">
+                           <select id="type" class="form-control dropdown" ng-options="storytype._id as storytype.name for storytype in StoryDlg.storyTypes" ng-model="StoryDlg.story.type">
                            </select>
-
-
-
-                            <input type="text" class="form-control" id="confirmpassword" placeholder="Story Type"  ng-model="story.type">
-                            {{story.project.storyTypes}}
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="">
                         <label for="owner" class="col-sm-3 control-label">Owner</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="owner" placeholder="Owner"  ng-model="story.owner">
+                            <input type="text" class="form-control" id="owner" placeholder="Owner"  ng-model="StoryDlg.story.owner">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="">
                         <label for="agileestimate" class="col-sm-3 control-label">Agile Estimation</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="agileestimate" placeholder="Agile Estimate"  ng-model="story.agileestimate">
+                             <select id="type" class="form-control dropdown" ng-options="agileestimate._id as agileestimate.name for agileestimate in StoryDlg.agileEstimation" ng-model="StoryDlg.story.agileEstimate">
+                           </select>
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="">
                         <label for="originaltimeestimate" class="col-sm-3 control-label">Time Estimate</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="originaltimeestimate" placeholder="Original Time Estimate"  ng-model="story.originaltimeestimate">
+                            <input type="number" min="0" max="999" class="form-control" id="originaltimeestimate" placeholder="Original Time Estimate"  ng-model="StoryDlg.story.originaltimeestimate">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="">
                         <label for="tags" class="col-sm-3 control-label">Tags (comma separated)</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="tags" placeholder=""  ng-model="story.tags">
+                            <input type="text" class="form-control" id="tags" placeholder=""  ng-model="StoryDlg.story.tags">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="">
                         <label for="description" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="description" placeholder=""  ng-model="story.description">
+                            <textarea rows="6" class="form-control" id="description" placeholder=""  ng-model="StoryDlg.story.description" ngTrim=true></textarea>
                         </div>
                     </div>
 
@@ -130,8 +128,8 @@
             </div>  <!-- end modal-body -->
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-class="" ng-click="story.cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-class="" ng-click="story.save()">Save</button>
+                <button type="button" class="btn btn-default" ng-class="" ng-click="StoryDlg.cancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-class="" ng-click="StoryDlg.save()" ng-disabled="newStoryForm.$valid ? false : true" >Save</button>
             </div>
         </form>
 </script>

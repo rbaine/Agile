@@ -12,7 +12,7 @@ console.log("AGILE NODE APP - GULP");
 // Lint Task
 gulp.task('lint', function() {
     console.log('linting...');
-    return gulp.src('app.js, js/*.js')
+    return gulp.src(['app.js', 'js/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });

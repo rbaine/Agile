@@ -1,4 +1,4 @@
 ### TODOs
 | Filename | line # | TODO
 |:------|:------:|:------
-| project.js | 12 | need to add storytypes and agile estimation to this get function
+| project.js | 11 | need to add team member list to project

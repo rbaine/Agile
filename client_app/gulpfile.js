@@ -11,7 +11,7 @@ global.errorMessage = '';
 // Lint Task
 gulp.task('lint', function() {
     console.log('linting...');
-    return gulp.src('js/*.js,  !js/sidebar.js, !js/sortable.js')
+    return gulp.src(['js/*.js', '!js/angular-local-storage.js', '!js/sidebar.js', '!js/sortable.js', '!js/toastr.js', '!js/ui-bootstrap*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });

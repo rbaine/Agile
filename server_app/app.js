@@ -15,6 +15,7 @@ var User = require('./js/user');
 var Project = require('./js/project');
 var Team = require('./js/team');
 var Story = require('./js/story');
+var StoryNumber = require('./js/storynumber');
 var StoryType = require('./js/storytype');
 var TaskType = require('./js/tasktype');
 var Task = require('./js/task');
@@ -40,6 +41,15 @@ app.use(multer()); // for parsing multipart/form-data
 
 //TODO: move route definitions out to route files
 //TODO: review status response  to ensure errors get return with proper status
+
+
+// ***** STORY NUMBER  ROUTES *****
+app.get('/storyNumber/:id', function (request, response){
+     StoryNumber.get(_this.dbConn, request.params.id, function (data){
+        response.type('application/json');
+        response.send( data );
+    });
+});
 
 
 // ***** AGILE ESTIMATION ROUTES *****
