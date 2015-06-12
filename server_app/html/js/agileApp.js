@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngRoute', 'ui.sortable', 'ui.bootstrap']);
 
 app.run(function ($rootScope, $location, AuthService) {
-	app._baseURL = 'http://localhost:8080';
+	app._baseURL = 'http://localhost:8081';
 
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
 	

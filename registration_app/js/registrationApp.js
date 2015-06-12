@@ -32,7 +32,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
 app.controller('RegisterCtrl', function($scope, $http, $location) {
 	var _this = this;
-	var _baseURL = 'http://localhost:8080';
+	var _baseURL = 'http://ubuntu:8080';
 	this.errEmail = false;
 	this.errPassword = false;
 	this.errMsg = "";
